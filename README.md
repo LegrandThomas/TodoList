@@ -21,9 +21,8 @@
 
 ## Le Projet:
 
-<details>
-   <summary>Réalisation de la partie backEnd d'une application de gestion de tâches un "To Do List"</summary>
- </details>
+* Réalisation de la partie backEnd d'une application de gestion de tâches un "To Do List"
+
 
 
  ### Contexte du projet:
