@@ -63,7 +63,7 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 <summary>Gitflow</summary>
 
   </details>
-### Les branches
+## Les branches
 
 
 
