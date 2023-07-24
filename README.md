@@ -22,8 +22,7 @@
 ## Le Projet:
 
 <details>
-   <summary>Un système de gestion des produits pour un magasin en ligne</summary>
-    Une entreprise de magasin en ligne souhaite gérer efficacement ses stocks de produit, ajuster les prix , permettre aux clients de faire des commandes et de             répondre aux besoins des clients de manière rapide et précise.
+   <summary>Réalisation de la partie backEnd d'une application de gestion de tâches un "To Do List"</summary>
  </details>
 
 
@@ -31,42 +30,37 @@
   
   <details>
       <summary>contexte</summary>
-      Vous avez été chargé de développer un système de gestion des produits pour un magasin en ligne. L'objectif est de permettre aux propriétaires du magasin de gérer       efficacement leur catalogue de produits, d'ajouter de nouveaux produits, de mettre à jour les informations existantes et de suivre les stocks. Voici un ensemble       de fonctionnalités pour le système de gestion des produits :
+      Vous allez concevoir les classes et les liens pour une application de gestion de tâches, également appelée ToDoList. L'objectif de l'application est de permettre aux utilisateurs d'ajouter, afficher, modifier et supprimer des tâches à réaliser et d'indiquer le status de la tâche ( à faire, en cours, terminée).
 
-      **Gestion des catégories **:
-      Les propriétaires du magasin doivent pouvoir créer, modifier et supprimer des catégories de produits.
-      Chaque produit doit être associé à une ou plusieurs catégories pour une organisation facile du catalogue.
+​
 
-      Ajout et modification de produits :
-      Les propriétaires du magasin doivent pouvoir ajouter de nouveaux produits en fournissant des détails tels que le nom, la description, les images, les prix, etc.
-      Ils doivent également pouvoir modifier les informations existantes pour mettre à jour les prix, les descriptions, les images, etc.
+​
 
-      Gestion des variantes de produits :
-      Certains produits peuvent avoir des variantes, tels que différentes tailles, couleurs, options, etc.
-      Les propriétaires du magasin doivent pouvoir gérer ces variantes et spécifier les stocks disponibles pour chaque variante.
+Fonctionnalités requises :
 
-      Gestion des stocks :
-      Le système doit permettre aux propriétaires du magasin de suivre les niveaux de stock de chaque produit.
-      Ils doivent pouvoir ajouter des stocks lorsqu'ils reçoivent de nouvelles livraisons et mettre à jour les quantités vendues.
+    Ajouter une tâche : L'utilisateur doit pouvoir ajouter une nouvelle tâche à la ToDoList. Chaque tâche aura un titre, une description, une date de création, une date d'échéance et un statut initial (à faire).
+    Afficher la liste des tâches : L'utilisateur doit pouvoir voir la liste complète des tâches qu'il a ajoutées à la ToDoList. La liste devrait afficher le titre, la date d'échéance de chaque tâche et le statut.
+    Modifier une tâche : L'utilisateur doit pouvoir modifier le titre, la description, la date d'échéance et le statut d'une tâche existante dans la ToDoList.
+    Supprimer une tâche : L'utilisateur doit pouvoir supprimer une tâche de la ToDoList s'il n'a plus besoin de la réaliser.
+    Filtrage des tâches par statut : Permettre aux utilisateurs de filtrer les tâches par statut (à faire, en cours, terminée).
 
+​
 
-      Gestion des promotions et des remises :
-      Les propriétaires du magasin doivent pouvoir définir des promotions et des remises sur certains produits ou catégories.
-      Ils doivent pouvoir spécifier les dates de validité, les prix réduits, les conditions d'application, etc.
+Fonctionnalités avancées (Optionnelle) :
 
+Pour ceux qui ont bien avancé et finit les fonctionnalités de base, vous pouvez intégrer la gestion des utilisteurs du ToDoList avec un système de connexion à l'application.
 
-      Gestion des avis et des évaluations :
-      Les clients doivent pouvoir laisser des avis et des évaluations sur les produits.
-      Les propriétaires du magasin doivent pouvoir afficher, gérer et répondre à ces avis.
+Contraintes :
 
-      Recherche et filtrage :
-      Le système doit permettre aux propriétaires du magasin de rechercher des produits par nom, catégorie, prix, etc.
-      Des options de filtrage avancées peuvent être fournies pour faciliter la navigation et la recherche des produits.
+    Concevez les classes pour représenter les entités de votre application : Task (tâche) , User (utilisateur) et Statut.
+    Chaque classe doit avoir des propriétés pour représenter les attributs de l'entité. Par exemple, la classe Task pourrait avoir les propriétés suivantes : Title (titre), Description (description), CreatedDate      (date de création) et DueDate (date d'échéance) - User pourrait avoir : FirstName (Prénom), Name (Nom) et Email (Adresse e-mail) - Statut : Value (Valeur) .
+    Définissez les liens entre les classes lorsque cela est nécessaire. Par exemple, une tâche est associée à un utilisateur qui l'a créée. Vous pouvez donc créer une relation entre la classe Task , la classe         User et le statut de la tâche.
+    Assurez-vous d'utiliser les principes de l'encapsulation, de l'abstraction et de l'héritage pour concevoir vos classes de manière cohérente et modulaire.
 
-      Gestion des commandes :
-      Le système doit être intégré à la gestion des commandes pour suivre les ventes de produits et ajuster les stocks en conséquence.
+N'hésitez pas à utiliser des diagrammes de classes pour visualiser les liens entre vos classes et mieux comprendre la structure de votre application.
 
-      Ce système de gestion des produits permettra aux propriétaires du magasin de gérer efficacement leur catalogue en ligne, de suivre les stocks, d'ajuster les           prix et de répondre aux besoins des clients de manière rapide et précise.
+L'objectif de ce sujet est de vous familiariser avec les concepts de base de la conception des classes pour une application de gestion de tâches. Bonne conception !
+
 
   </details>
   
