@@ -74,7 +74,7 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 <details>
    <summary>use case  </summary>
-![usecaseTODOLIST](https://github.com/LegrandThomas/TodoList/assets/103045194/6cb94254-26b3-4d7c-bba4-dbbcaa2ebe54)
+<img width="603" alt="use_case" src="https://github.com/LegrandThomas/TodoList/assets/103045194/881ff5a2-fa49-42ba-a9ba-cb9fc0315a24">
 
 
 </details>
