@@ -6,7 +6,7 @@
 2. [Contexte du projet](#Contexte-du-projet)
 3. [acteurs et fonctionnalités](#acteurs-et-fonctionnalités)
 4. [use case](#use-case)
-5. [MCD / MLD](#mcd--mld)
+5. [Diagramme de classe](#mcd--mld)
 6. [régles de cardinalités](#régles-de-cardinalités)
 7. [régles métiers et contraintes divers](#régles-métiers-et-contraintes-divers)
 9. [Controller/services/data](#Controllerservicesdata)
@@ -63,7 +63,7 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 <summary>Gitflow</summary>
 
   </details>
-#### Les branches
+### Les branches
 
 
 
@@ -81,9 +81,9 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 
 
-### MCD / MLD:
+### Diagramme de classe:
 
-
+<img width="778" alt="diagramme_classe" src="https://github.com/LegrandThomas/TodoList/assets/103045194/b8782ea6-a88f-4db0-be22-073d7f17a5ea">
 
 ### régles de cardinalités
 
