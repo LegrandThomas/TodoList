@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Api.TodoList.Data.Context\Api.TodoList.Data.Context.csproj" />
+    <ProjectReference Include="..\Api.TodoList.Data.Repository.Contract\Api.TodoList.Data.Repository.Contract.csproj" />
+  </ItemGroup>
+
+</Project>
