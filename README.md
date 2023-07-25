@@ -68,6 +68,9 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 
    ### Equipe pour ce brief:
+
+    <details>
+      <summary>Team</summary>
 ![femme](https://github.com/LegrandThomas/TodoList/assets/103045194/904ebd31-2c43-459b-9fde-86fd1d12b274)                      Florence
 
 ![avatar-homme(2)](https://github.com/LegrandThomas/TodoList/assets/103045194/09641e12-6955-41e5-93af-75fd5a598f32)            JB
@@ -77,7 +80,8 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 ![avatar-homme(4)](https://github.com/LegrandThomas/TodoList/assets/103045194/4e0ba620-9066-4a3e-b6e5-990bc296057d)            Pascal
 
 ![avatar-homme(5)](https://github.com/LegrandThomas/TodoList/assets/103045194/8d51767b-a971-4209-9e00-430a62fe73d0)            Thomas
-
+   
+    </detail>
    ### use case
 
 
