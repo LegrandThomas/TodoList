@@ -1,5 +1,6 @@
 ﻿using Api.TodoList.Data.Entity.Model;
 using Api.TodoList.Service.Contract;
+using Api.TodoList.Service.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.TodoList.Application.Controllers

@@ -12,7 +12,7 @@ namespace Api.TodoList.Service.Mapper
                 LastName = userDto.LastName,
                 FirstName = userDto.FirstName,
                 Email = userDto.Email,
-                Tasks = TaskMapper.TransformCreateDTOToEntity(userDto.Tasks)
+                Tasks = userDto.Tasks.Select(TaskMapper.TransformCreateDTOToEntity).ToList()
             };
         }
 
@@ -24,9 +24,8 @@ namespace Api.TodoList.Service.Mapper
                 LastName = user.LastName,
                 FirstName = user.FirstName,
                 Email = user.Email,
-                Tasks = TaskMapper.TransformEntityToReadDTO(user.tasks)
+                Tasks = user.Tasks.Select(TaskMapper.TransformEntityToReadDTO).ToList()
             };
         }
-
     }
 }

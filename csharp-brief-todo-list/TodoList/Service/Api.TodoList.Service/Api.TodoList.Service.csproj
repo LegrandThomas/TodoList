@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\Data\Api.TodoList.Data.Repository.Contract\Api.TodoList.Data.Repository.Contract.csproj" />
     <ProjectReference Include="..\Api.TodoList.Service.Contract\Api.TodoList.Service.Contract.csproj" />
     <ProjectReference Include="..\Api.TodoList.Service.DTO\Api.TodoList.Service.DTO.csproj" />
+    <ProjectReference Include="..\Api.TodoList.Service.Mapper\Api.TodoList.Service.Mapper.csproj" />
   </ItemGroup>
 
 </Project>

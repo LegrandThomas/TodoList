@@ -4,19 +4,19 @@ namespace Api.TodoList.Service.Mapper
 {
     public class TaskMapper
     {
-        public static Task TransformCreateDTOToEntity(CreateTaskDTO taskDTO)
+        public static Data.Entity.Model.Task TransformCreateDTOToEntity(CreateTaskDTO taskDTO)
         {
-            return new Api.TodoList.Data.Entity.Model.Task()
+            return new Data.Entity.Model.Task
             {
-                Name = CreateTaskDTO.Name,
+                Name = taskDTO.Name,
 
-                Description = CreateTaskDTO.Description,
-                DateCreated = CreateTaskDTO.DateCreated,
-                DateDue = CreateTaskDTO.DateDue
+                Description = taskDTO.Description,
+                DateCreated = taskDTO.DateCreated,
+                DateDue = taskDTO.DateDue
             };
         }
 
-        public static ReadTaskDTO TransformEntityToReadDTO(Task task)
+        public static ReadTaskDTO TransformEntityToReadDTO(Data.Entity.Model.Task task)
         {
             return new ReadTaskDTO
             {
