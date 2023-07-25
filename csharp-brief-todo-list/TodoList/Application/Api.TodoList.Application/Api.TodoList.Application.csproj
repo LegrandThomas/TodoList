@@ -15,10 +15,8 @@
     <ProjectReference Include="..\..\Data\Api.TodoList.Data.Context\Api.TodoList.Data.Context.csproj" />
     <ProjectReference Include="..\..\Data\Api.TodoList.Data.Repository.Contract\Api.TodoList.Data.Repository.Contract.csproj" />
     <ProjectReference Include="..\..\Data\Api.TodoList.Data.Repository\Api.TodoList.Data.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\Service\Api.TodoList.Service.Contract\Api.TodoList.Service.Contract.csproj" />
+    <ProjectReference Include="..\..\Service\Api.TodoList.Service\Api.TodoList.Service.csproj" />
   </ItemGroup>
 
 </Project>

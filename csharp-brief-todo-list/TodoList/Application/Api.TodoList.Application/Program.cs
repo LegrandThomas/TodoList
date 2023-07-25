@@ -1,8 +1,10 @@
-
 using Api.TodoList.Data.Context;
+using Api.TodoList.Data.Context.Contract;
 using Api.TodoList.Data.Entity.Model;
 using Api.TodoList.Data.Repository;
 using Api.TodoList.Data.Repository.Contract;
+using Api.TodoList.Service;
+using Api.TodoList.Service.Contract;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.TodoList.Application
@@ -15,23 +17,26 @@ namespace Api.TodoList.Application
 
             var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
 
-            // Add services to the container.
-            builder.Services.AddDbContext<TodoListDbContext>(options => 
+            builder.Services.AddDbContext<ITodoListDbContext, TodoListDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
                     .LogTo(Console.WriteLine, LogLevel.Information)
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors());
 
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IRepository<Data.Entity.Model.Task>, TaskRepository>();
+            builder.Services.AddScoped<IRepository<Status>, StatusRepository>();
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ITaskService, TaskService>();
+            builder.Services.AddScoped<IStatusService, StatusService>();
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -41,7 +46,6 @@ namespace Api.TodoList.Application
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

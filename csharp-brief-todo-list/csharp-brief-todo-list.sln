@@ -11,15 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{DA00
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{49E9BED9-7487-4795-A439-2CD48A2C7724}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Application", "TodoList\Application\Api.TodoList.Application\Api.TodoList.Application.csproj", "{9E35DC6B-BB33-4BFF-BE64-CB861FB8F358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Application", "TodoList\Application\Api.TodoList.Application\Api.TodoList.Application.csproj", "{9E35DC6B-BB33-4BFF-BE64-CB861FB8F358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Data.Entity", "TodoList\Data\Api.TodoList.Data.Entity\Api.TodoList.Data.Entity.csproj", "{AE660BCE-C88E-4EF9-90CA-6894ACBA4447}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Data.Entity", "TodoList\Data\Api.TodoList.Data.Entity\Api.TodoList.Data.Entity.csproj", "{AE660BCE-C88E-4EF9-90CA-6894ACBA4447}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Data.Context", "TodoList\Data\Api.TodoList.Data.Context\Api.TodoList.Data.Context.csproj", "{8E30C234-7C3C-459F-831A-E55E50A68F10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Data.Context", "TodoList\Data\Api.TodoList.Data.Context\Api.TodoList.Data.Context.csproj", "{8E30C234-7C3C-459F-831A-E55E50A68F10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Data.Repository", "TodoList\Data\Api.TodoList.Data.Repository\Api.TodoList.Data.Repository.csproj", "{6E18C66B-97E9-448B-8285-1BFE08376782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Data.Repository", "TodoList\Data\Api.TodoList.Data.Repository\Api.TodoList.Data.Repository.csproj", "{6E18C66B-97E9-448B-8285-1BFE08376782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Data.Repository.Contract", "TodoList\Data\Api.TodoList.Data.Repository.Contract\Api.TodoList.Data.Repository.Contract.csproj", "{CC25AD55-7B80-4152-88F8-471E0ED07AFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Data.Repository.Contract", "TodoList\Data\Api.TodoList.Data.Repository.Contract\Api.TodoList.Data.Repository.Contract.csproj", "{CC25AD55-7B80-4152-88F8-471E0ED07AFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Service", "TodoList\Service\Api.TodoList.Service\Api.TodoList.Service.csproj", "{BD4E578B-317E-427E-BBC1-ED42CA3739E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Service.Contract", "TodoList\Service\Api.TodoList.Service.Contract\Api.TodoList.Service.Contract.csproj", "{7A2D3CF2-7B2E-4AB8-B205-688ECBCF8AEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Data.Context.Contract", "TodoList\Data\Api.TodoList.Data.Context.Contract\Api.TodoList.Data.Context.Contract.csproj", "{4A91B113-AB43-4C96-8B74-9ED5F8E0378C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +53,18 @@ Global
 		{CC25AD55-7B80-4152-88F8-471E0ED07AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC25AD55-7B80-4152-88F8-471E0ED07AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC25AD55-7B80-4152-88F8-471E0ED07AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD4E578B-317E-427E-BBC1-ED42CA3739E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD4E578B-317E-427E-BBC1-ED42CA3739E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD4E578B-317E-427E-BBC1-ED42CA3739E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD4E578B-317E-427E-BBC1-ED42CA3739E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A2D3CF2-7B2E-4AB8-B205-688ECBCF8AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A2D3CF2-7B2E-4AB8-B205-688ECBCF8AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A2D3CF2-7B2E-4AB8-B205-688ECBCF8AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A2D3CF2-7B2E-4AB8-B205-688ECBCF8AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A91B113-AB43-4C96-8B74-9ED5F8E0378C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A91B113-AB43-4C96-8B74-9ED5F8E0378C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A91B113-AB43-4C96-8B74-9ED5F8E0378C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A91B113-AB43-4C96-8B74-9ED5F8E0378C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +78,9 @@ Global
 		{8E30C234-7C3C-459F-831A-E55E50A68F10} = {49E9BED9-7487-4795-A439-2CD48A2C7724}
 		{6E18C66B-97E9-448B-8285-1BFE08376782} = {49E9BED9-7487-4795-A439-2CD48A2C7724}
 		{CC25AD55-7B80-4152-88F8-471E0ED07AFD} = {49E9BED9-7487-4795-A439-2CD48A2C7724}
+		{BD4E578B-317E-427E-BBC1-ED42CA3739E7} = {DA007417-B1FE-48AD-94D9-ED6140D5F0B3}
+		{7A2D3CF2-7B2E-4AB8-B205-688ECBCF8AEE} = {DA007417-B1FE-48AD-94D9-ED6140D5F0B3}
+		{4A91B113-AB43-4C96-8B74-9ED5F8E0378C} = {49E9BED9-7487-4795-A439-2CD48A2C7724}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B53D03B5-C573-4584-BB8C-0C99B52CE215}

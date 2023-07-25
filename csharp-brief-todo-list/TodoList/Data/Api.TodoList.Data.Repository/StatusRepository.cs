@@ -3,9 +3,9 @@ using Api.TodoList.Data.Entity.Model;
 
 namespace Api.TodoList.Data.Repository
 {
-    public class UserRepository : Repository<User>
+    public class StatusRepository : Repository<Status>
     {
-        public UserRepository(ITodoListDbContext dbContext) : base(dbContext)
+        public StatusRepository(ITodoListDbContext dbContext) : base(dbContext)
         {
         }
     }

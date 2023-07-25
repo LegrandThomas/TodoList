@@ -1,16 +1,36 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Api.TodoList.Data.Entity.Model
 {
+    /// <summary>
+    /// Represent our table users
+    /// </summary>
     public class User
     {
+        /// <summary>
+        /// Id Utilisateur
+        /// </summary>
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdUser { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string Email { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+
+        /// <summary>
+        /// Nom
+        /// </summary>
+        public string LastName { get; set; } = null!;
+
+        /// <summary>
+        /// Prénom
+        /// </summary>
+        public string FirstName { get; set; } = null!;
+
+        /// <summary>
+        /// Email
+        /// </summary>
+        public string Email { get; set; } = null!;
+
+        /// <summary>
+        /// Tâches
+        /// </summary>
+        public virtual ICollection<Task> Tasks { get; set; } = new List<Model.Task>();
     }
 }
