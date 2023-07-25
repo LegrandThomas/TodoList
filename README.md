@@ -4,7 +4,7 @@
 
 1. [Le Projet](#Le-Projet)
 2. [Contexte du projet](#Contexte-du-projet)
-3. [Equipe pour ce brief](#equipe_pour_ce_brief)
+3. [Equipe pour ce brief](#Equipe_pour_ce_brief)
 4. [use case](#use-case)
 5. [Diagramme de classe](#mcd--mld)
 6. [régles de cardinalités](#régles-de-cardinalités)
