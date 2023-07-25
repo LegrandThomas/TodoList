@@ -71,6 +71,7 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 <details>
 <summary>Team</summary>
+ 
 ![femme](https://github.com/LegrandThomas/TodoList/assets/103045194/904ebd31-2c43-459b-9fde-86fd1d12b274)                      Florence
 
 ![avatar-homme(2)](https://github.com/LegrandThomas/TodoList/assets/103045194/09641e12-6955-41e5-93af-75fd5a598f32)            JB
