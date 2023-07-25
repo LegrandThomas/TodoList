@@ -82,7 +82,7 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 ![avatar-homme(5)](https://github.com/LegrandThomas/TodoList/assets/103045194/8d51767b-a971-4209-9e00-430a62fe73d0)            Thomas
    
-</details>
+  </details>
 
    ### use case
 
