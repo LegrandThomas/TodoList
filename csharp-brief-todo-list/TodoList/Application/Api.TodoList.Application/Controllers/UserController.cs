@@ -32,5 +32,21 @@ namespace Api.TodoList.Application.Controllers
         /// <returns></returns>
         [HttpGet("{id}"), ProducesResponseType(typeof(User), 200)]
         public async Task<ActionResult> Get(int id) => Ok(await _userService.GetUserByIdAsync(id));
+
+        /// <summary>
+        /// Handle post request for creating a new user
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns>User DTO</returns>
+        [HttpPost, ProducesResponseType(typeof(IEnumerable<ReadUserDTO>), 200)]
+        public async Task<ActionResult> Post([FromBody] CreateUserDTO userDTO) => Ok(await _userService.AddUserAsync(userDTO).ConfigureAwait(false));
+
+        /// <summary>
+        /// Handle delete request for deleting a user by his id
+        /// </summary>
+        /// <param name="id">User id</param>
+        /// <returns>User DTO</returns>
+        [HttpDelete("{id}"), ProducesResponseType(typeof(IEnumerable<ReadUserDTO>), 200)]
+        public async Task<ActionResult> Delete(int id) => Ok(await _userService.RemoveUserAsync(id).ConfigureAwait(false));
     }
 }

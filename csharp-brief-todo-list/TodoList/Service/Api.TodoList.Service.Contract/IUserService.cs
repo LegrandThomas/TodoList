@@ -1,12 +1,15 @@
-﻿using Api.TodoList.Data.Entity.Model;
-using Api.TodoList.Service.DTO;
+﻿using Api.TodoList.Service.DTO;
 
 namespace Api.TodoList.Service.Contract
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> GetUsersAsync();
+        Task<IEnumerable<ReadUserDTO>> GetUsersAsync();
 
         Task<ReadUserDTO> GetUserByIdAsync(int id);
+
+        Task<ReadUserDTO> AddUserAsync(CreateUserDTO userDTO);
+
+        Task<ReadUserDTO> RemoveUserAsync(int id);
     }
 }

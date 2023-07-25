@@ -15,9 +15,10 @@ namespace Api.TodoList.Service
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<User>> GetUsersAsync()
+        public async Task<IEnumerable<ReadUserDTO>> GetUsersAsync()
         {
-            return await _userRepository.GetAll().ConfigureAwait(false);
+            var users = await _userRepository.GetAll(u => u.Tasks).ConfigureAwait(false);
+            return users.Select(UserMapper.TransformEntityToReadDTO);
         }
 
         public async Task<ReadUserDTO> GetUserByIdAsync(int id)
@@ -29,6 +30,34 @@ namespace Api.TodoList.Service
             }
 
             return UserMapper.TransformEntityToReadDTO(user);
+        }
+
+        public async Task<ReadUserDTO> AddUserAsync(CreateUserDTO userDTO)
+        {
+            if (userDTO == null)
+            {
+                throw new ArgumentNullException(nameof(userDTO));
+            }
+
+            var userToAdd = UserMapper.TransformCreateDTOToEntity(userDTO);
+
+            var userAdded = await _userRepository.Add(userToAdd).ConfigureAwait(false);
+            return UserMapper.TransformEntityToReadDTO(userAdded);
+        }
+
+        public async Task<ReadUserDTO> RemoveUserAsync(int id)
+        {
+            var user = await _userRepository.GetById(id).ConfigureAwait(false);
+            if (user == null)
+            {
+                throw new Exception($"User {id} not found.");
+            }
+
+            var userDeleted = await _userRepository.Remove(user).ConfigureAwait(false);
+            
+            //todo remove tasks ?
+
+            return UserMapper.TransformEntityToReadDTO(userDeleted);
         }
     }
 }
