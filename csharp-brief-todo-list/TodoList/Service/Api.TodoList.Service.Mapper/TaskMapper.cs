@@ -21,6 +21,8 @@ namespace Api.TodoList.Service.Mapper
             return new ReadTaskDTO
             {
                 IdTask = task.IdTask,
+                IdUser = task.IdUser,
+                IdStatus = task.IdStatus,
                 Name = task.Name,
                 Description = task.Description,
                 DateCreated = task.DateCreated,
