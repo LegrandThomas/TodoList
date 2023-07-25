@@ -1,4 +1,5 @@
 ﻿using Api.TodoList.Data.Entity.Model;
+using Api.TodoList.Service.DTO;
 
 namespace Api.TodoList.Service.Contract
 {
@@ -6,6 +7,6 @@ namespace Api.TodoList.Service.Contract
     {
         Task<IEnumerable<User>> GetUsersAsync();
 
-        Task<User> GetUserByIdAsync(int id);
+        Task<ReadUserDTO> GetUserByIdAsync(int id);
     }
 }

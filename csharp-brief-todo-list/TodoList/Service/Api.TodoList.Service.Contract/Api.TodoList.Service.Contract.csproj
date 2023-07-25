@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Api.TodoList.Data.Entity\Api.TodoList.Data.Entity.csproj" />
+    <ProjectReference Include="..\Api.TodoList.Service.DTO\Api.TodoList.Service.DTO.csproj" />
   </ItemGroup>
 
 </Project>
