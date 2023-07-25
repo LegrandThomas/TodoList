@@ -1,5 +1,4 @@
-﻿using Api.TodoList.Data.Entity.Model;
-using Api.TodoList.Service.Contract;
+﻿using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +29,7 @@ namespace Api.TodoList.Application.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}"), ProducesResponseType(typeof(User), 200)]
+        [HttpGet("{id}"), ProducesResponseType(typeof(ReadUserDTO), 200)]
         public async Task<ActionResult> Get(int id) => Ok(await _userService.GetUserByIdAsync(id));
 
         /// <summary>

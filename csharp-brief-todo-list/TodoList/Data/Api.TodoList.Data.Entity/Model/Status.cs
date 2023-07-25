@@ -1,8 +1,12 @@
-﻿namespace Api.TodoList.Data.Entity.Model;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Status
+namespace Api.TodoList.Data.Entity.Model
 {
-    public int IdStatus { get; set; }
+    public class Status
+    {
+        [Key]
+        public int IdStatus { get; set; }
 
-    public string Value { get; set; } = null!;
+        public string Value { get; set; } = null!;
+    }
 }

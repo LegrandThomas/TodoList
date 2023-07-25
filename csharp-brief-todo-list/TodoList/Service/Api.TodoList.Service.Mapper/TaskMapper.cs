@@ -8,8 +8,9 @@ namespace Api.TodoList.Service.Mapper
         {
             return new Data.Entity.Model.Task
             {
+                IdUser = taskDTO.IdUser,
+                IdStatus = taskDTO.IdStatus,
                 Name = taskDTO.Name,
-
                 Description = taskDTO.Description,
                 DateCreated = taskDTO.DateCreated,
                 DateDue = taskDTO.DateDue
