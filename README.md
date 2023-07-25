@@ -1,10 +1,14 @@
 # TodoList
 
+![todolist-to](https://github.com/LegrandThomas/TodoList/assets/103045194/9564e11a-321b-4e6c-93f0-1239d773351b)
+
+---
+
 ## Table des matières
 
 1. [Le Projet](#Le-Projet)
 2. [Contexte du projet](#Contexte-du-projet)
-3. [acteurs et fonctionnalités](#acteurs-et-fonctionnalités)
+3. [Equipe pour ce brief](#equipe-pour-ce-brief)
 4. [use case](#use-case)
 5. [Diagramme de classe](#mcd--mld)
 6. [régles de cardinalités](#régles-de-cardinalités)
@@ -67,8 +71,22 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 
 
-   ### acteurs et fonctionnalités:
+   ### Equipe pour ce brief:
 
+<details>
+<summary>Team</summary>
+ 
+![femme](https://github.com/LegrandThomas/TodoList/assets/103045194/904ebd31-2c43-459b-9fde-86fd1d12b274)                      Florence
+
+![avatar-homme(2)](https://github.com/LegrandThomas/TodoList/assets/103045194/09641e12-6955-41e5-93af-75fd5a598f32)            JB
+
+![avatar-homme(3)](https://github.com/LegrandThomas/TodoList/assets/103045194/96a8c1ae-94e5-4a14-8b5e-90deb1229a6f)            Monir
+
+![avatar-homme(4)](https://github.com/LegrandThomas/TodoList/assets/103045194/4e0ba620-9066-4a3e-b6e5-990bc296057d)            Pascal
+
+![avatar-homme(5)](https://github.com/LegrandThomas/TodoList/assets/103045194/8d51767b-a971-4209-9e00-430a62fe73d0)            Thomas
+   
+  </details>
 
    ### use case
 
