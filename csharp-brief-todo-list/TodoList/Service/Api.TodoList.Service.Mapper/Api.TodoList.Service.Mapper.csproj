@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NewFile1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Data\Api.TodoList.Data.Entity\Api.TodoList.Data.Entity.csproj" />
-    <ProjectReference Include="..\..\Data\Api.TodoList.Data.Repository.Contract\Api.TodoList.Data.Repository.Contract.csproj" />
-    <ProjectReference Include="..\Api.TodoList.Service.Contract\Api.TodoList.Service.Contract.csproj" />
     <ProjectReference Include="..\Api.TodoList.Service.DTO\Api.TodoList.Service.DTO.csproj" />
   </ItemGroup>
 

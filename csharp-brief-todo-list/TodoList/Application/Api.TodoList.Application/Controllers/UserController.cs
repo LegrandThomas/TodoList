@@ -21,7 +21,7 @@ namespace Api.TodoList.Application.Controllers
         /// Handle get request for retrieving all the users
         /// </summary>
         /// <returns></returns>
-        [HttpGet, ProducesResponseType(typeof(IEnumerable<User>), 200)]
+        [HttpGet, ProducesResponseType(typeof(IEnumerable<ReadUserDTO>), 200)]
         public async Task<ActionResult> GetUsersAsync() => Ok(await _userService.GetUsersAsync());
 
         /// <summary>

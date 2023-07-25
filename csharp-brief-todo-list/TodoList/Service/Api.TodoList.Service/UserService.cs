@@ -1,6 +1,7 @@
 ﻿using Api.TodoList.Data.Entity.Model;
 using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service.Contract;
+using Api.TodoList.Service.DTO;
 
 namespace Api.TodoList.Service
 {
@@ -18,7 +19,7 @@ namespace Api.TodoList.Service
             return await _userRepository.GetAll().ConfigureAwait(false);
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<ReadUserDTO> GetUserByIdAsync(int id)
         {
             var user = await _userRepository.GetById(id, u => u.Tasks).ConfigureAwait(false);
             if (user == null)
