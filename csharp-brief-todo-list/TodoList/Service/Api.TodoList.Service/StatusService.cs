@@ -2,6 +2,7 @@
 using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
+using Api.TodoList.Service.Mapper;
 
 namespace Api.TodoList.Service
 {
@@ -18,18 +19,25 @@ namespace Api.TodoList.Service
         /// 
         /// </summary>
         /// <returns>All the statuses entities from our table</returns>
-        public async Task<IEnumerable<Status>> GetStatusesAsync()
+        public async Task<IEnumerable<ReadStatusDTO>> GetStatusesAsync()
         {
-            return await _statusRepository.GetAll().ConfigureAwait(false);
+            var status = await _statusRepository.GetAll().ConfigureAwait(false);
+            return status.Select(StatusMapper.TransformEntityToReadDTO);
         }
 
         /// <summary>
         ///   Get one Status by id 
         /// </summary>
         /// <returns>All the statuses entities from our table</returns>
-        public async Task<Status> GetStatusByIdAsync(int idStatus)
+        public async Task<ReadStatusDTO> GetStatusByIdAsync(int idStatus)
         {
-            return await _statusRepository.GetById(idStatus).ConfigureAwait(false);
+            var status = await _statusRepository.GetById(idStatus).ConfigureAwait(false);
+            if (status == null)
+            {
+                throw new Exception($"Status {idStatus} not found.");
+            }
+
+            return StatusMapper.TransformEntityToReadDTO(status);
         }
     }
 }
