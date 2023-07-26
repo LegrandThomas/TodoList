@@ -15,7 +15,8 @@ namespace Api.TodoList.Service.Mapper
 
         public StatusMapper()
         {
-           
+
+
             CreateMap<Status, CreateStatusDTO>()
                   .ReverseMap();
 

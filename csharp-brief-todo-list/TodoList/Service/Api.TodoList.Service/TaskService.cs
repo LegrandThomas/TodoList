@@ -3,6 +3,9 @@ using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
 using Api.TodoList.Service.Mapper;
+using AutoMapper;
+using System.Threading.Tasks;
+using Task = Api.TodoList.Data.Entity.Model.Task;
 
 namespace Api.TodoList.Service
 {
@@ -12,17 +15,22 @@ namespace Api.TodoList.Service
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Status> _statusRepository;
 
-        public TaskService(IRepository<Data.Entity.Model.Task> taskRepository, IRepository<User> userRepository, IRepository<Status> statusRepository)
+
+        private readonly IMapper _mapper;
+
+        public TaskService(IRepository<Data.Entity.Model.Task> taskRepository, IRepository<User> userRepository, IRepository<Status> statusRepository, IMapper mapper)
         {
             _taskRepository = taskRepository;
             _userRepository = userRepository;
             _statusRepository = statusRepository;
+
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<ReadTaskDTO>> GetTasksAsync()
         {
             var tasks = await _taskRepository.GetAll(t => t.User).ConfigureAwait(false);
-            return tasks.Select(TaskMapper.TransformEntityToReadDTO);
+            return _mapper.Map<IEnumerable<ReadTaskDTO>>(tasks);
         }
 
         public async Task<ReadTaskDTO> GetTaskByIdAsync(int id)
@@ -33,7 +41,7 @@ namespace Api.TodoList.Service
                 throw new Exception($"Task {id} not found.");
             }
 
-            return TaskMapper.TransformEntityToReadDTO(task);
+            return _mapper.Map<ReadTaskDTO>(task);
         }
 
         public async Task<IEnumerable<ReadTaskDTO>> GetTasksByUserIdAsync(int userId)
@@ -44,7 +52,7 @@ namespace Api.TodoList.Service
                 throw new Exception($"User {userId} not found.");
             }
 
-            return user.Tasks.Select(TaskMapper.TransformEntityToReadDTO);
+            return _mapper.Map<IEnumerable<ReadTaskDTO>>(user.Tasks);
         }
 
         public async Task<IEnumerable<ReadTaskDTO>> GetTasksByStatusIdAsync(int statusId)
@@ -56,7 +64,9 @@ namespace Api.TodoList.Service
             }
 
             var tasks = await _taskRepository.GetAll(t => t.User).ConfigureAwait(false);
-            return tasks.Where(t => t.IdStatus == statusId).Select(TaskMapper.TransformEntityToReadDTO);
+
+            return _mapper.Map<IEnumerable<ReadTaskDTO>>(tasks.Where(t => t.IdStatus == statusId));
+
         }
 
         public async Task<ReadTaskDTO> AddTaskAsync(CreateTaskDTO createTaskDTO)
@@ -66,10 +76,11 @@ namespace Api.TodoList.Service
                 throw new ArgumentNullException(nameof(createTaskDTO));
             }
 
-            var taskToAdd = TaskMapper.TransformCreateDTOToEntity(createTaskDTO);
+            var taskToAdd = _mapper.Map<Task>(createTaskDTO);
 
             var taskAdded = await _taskRepository.Add(taskToAdd).ConfigureAwait(false);
-            return TaskMapper.TransformEntityToReadDTO(taskAdded);
+
+            return _mapper.Map<ReadTaskDTO>(taskAdded);
         }
 
         public async Task<ReadTaskDTO> RemoveTaskAsync(int id)
@@ -81,7 +92,8 @@ namespace Api.TodoList.Service
             }
 
             var taskDeleted = await _taskRepository.Remove(task).ConfigureAwait(false);
-            return TaskMapper.TransformEntityToReadDTO(taskDeleted);
+
+            return _mapper.Map<ReadTaskDTO>(taskDeleted);
         }
     }
 }

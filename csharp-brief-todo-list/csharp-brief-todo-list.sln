@@ -27,9 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Service.Contra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Data.Context.Contract", "TodoList\Data\Api.TodoList.Data.Context.Contract\Api.TodoList.Data.Context.Contract.csproj", "{4A91B113-AB43-4C96-8B74-9ED5F8E0378C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Service.DTO", "TodoList\Service\Api.TodoList.Service.DTO\Api.TodoList.Service.DTO.csproj", "{57CF7567-FE28-4B8B-B2A7-C8F97B2CF761}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Service.DTO", "TodoList\Service\Api.TodoList.Service.DTO\Api.TodoList.Service.DTO.csproj", "{57CF7567-FE28-4B8B-B2A7-C8F97B2CF761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.TodoList.Service.Mapper", "TodoList\Service\Api.TodoList.Service.Mapper\Api.TodoList.Service.Mapper.csproj", "{614E14AD-C284-489B-9E54-25C7E331A773}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Service.Mapper", "TodoList\Service\Api.TodoList.Service.Mapper\Api.TodoList.Service.Mapper.csproj", "{614E14AD-C284-489B-9E54-25C7E331A773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
