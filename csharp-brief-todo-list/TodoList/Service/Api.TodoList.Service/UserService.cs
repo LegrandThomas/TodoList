@@ -2,7 +2,6 @@
 using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
-using Api.TodoList.Service.Mapper;
 using AutoMapper;
 
 namespace Api.TodoList.Service
@@ -12,7 +11,6 @@ namespace Api.TodoList.Service
         private readonly IRepository<User> _userRepository;
 
         private readonly IMapper _mapper;
-
 
         public UserService(IRepository<User> userRepository, IMapper mapper)
         {
@@ -37,6 +35,17 @@ namespace Api.TodoList.Service
             return _mapper.Map<ReadUserDTO>(user);
         }
 
+        public async Task<ReadUserDTO> GetUserByEmailAsync(string email)
+        {
+            var user = await _userRepository.GetBy("Email", email, u => u.Tasks).ConfigureAwait(false);
+            if (user == null)
+            {
+                throw new Exception($"User with {email} not found.");
+            }
+
+            return _mapper.Map<ReadUserDTO>(user);
+        }
+
         public async Task<ReadUserDTO> AddUserAsync(CreateUserDTO userDTO)
         {
             if (userDTO == null)
@@ -44,14 +53,10 @@ namespace Api.TodoList.Service
                 throw new ArgumentNullException(nameof(userDTO));
             }
 
-             var userToAdd = _mapper.Map<User>(userDTO);
+            var userToAdd = _mapper.Map<User>(userDTO);
+            var userAdded = await _userRepository.Add(userToAdd).ConfigureAwait(false);
 
-  
-                var userAdded = await _userRepository.Add(userToAdd).ConfigureAwait(false);
-
-
-
-            return _mapper.Map<ReadUserDTO>(userDTO);
+            return _mapper.Map<ReadUserDTO>(userAdded);
 
 
         }

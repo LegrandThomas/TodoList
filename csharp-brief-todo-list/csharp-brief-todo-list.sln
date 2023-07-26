@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Service.DTO", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Service.Mapper", "TodoList\Service\Api.TodoList.Service.Mapper\Api.TodoList.Service.Mapper.csproj", "{614E14AD-C284-489B-9E54-25C7E331A773}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.FrontCLI", "TodoList\Application\TodoList.FrontCLI\TodoList.FrontCLI.csproj", "{1FEAB899-4BD7-4C5C-BB48-F14A53890C65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{614E14AD-C284-489B-9E54-25C7E331A773}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{614E14AD-C284-489B-9E54-25C7E331A773}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{614E14AD-C284-489B-9E54-25C7E331A773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FEAB899-4BD7-4C5C-BB48-F14A53890C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FEAB899-4BD7-4C5C-BB48-F14A53890C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FEAB899-4BD7-4C5C-BB48-F14A53890C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FEAB899-4BD7-4C5C-BB48-F14A53890C65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{4A91B113-AB43-4C96-8B74-9ED5F8E0378C} = {49E9BED9-7487-4795-A439-2CD48A2C7724}
 		{57CF7567-FE28-4B8B-B2A7-C8F97B2CF761} = {DA007417-B1FE-48AD-94D9-ED6140D5F0B3}
 		{614E14AD-C284-489B-9E54-25C7E331A773} = {DA007417-B1FE-48AD-94D9-ED6140D5F0B3}
+		{1FEAB899-4BD7-4C5C-BB48-F14A53890C65} = {4AA28E02-9260-4609-BB09-E59888A09C62}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B53D03B5-C573-4584-BB8C-0C99B52CE215}

@@ -33,6 +33,14 @@ namespace Api.TodoList.Application.Controllers
         public async Task<ActionResult> Get(int id) => Ok(await _userService.GetUserByIdAsync(id));
 
         /// <summary>
+        /// Handle get request with params for retrieving a user by his email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpGet("Email/{email}"), ProducesResponseType(typeof(ReadUserDTO), 200)]
+        public async Task<ActionResult> Get(string email) => Ok(await _userService.GetUserByEmailAsync(email));
+
+        /// <summary>
         /// Handle post request for creating a new user
         /// </summary>
         /// <param name="userDTO"></param>

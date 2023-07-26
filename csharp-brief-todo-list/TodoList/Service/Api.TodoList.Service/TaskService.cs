@@ -2,9 +2,7 @@
 using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
-using Api.TodoList.Service.Mapper;
 using AutoMapper;
-using System.Threading.Tasks;
 using Task = Api.TodoList.Data.Entity.Model.Task;
 
 namespace Api.TodoList.Service
