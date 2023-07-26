@@ -25,7 +25,7 @@ namespace Api.TodoList.Application.Controllers
         public async Task<ActionResult> GetUsersAsync() => Ok(await _userService.GetUsersAsync());
 
         /// <summary>
-        /// Handle get request with params for retrieving a user with his id
+        /// Handle get request with params for retrieving a user by his id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

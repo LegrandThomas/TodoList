@@ -1,4 +1,5 @@
-﻿using Api.TodoList.Data.Repository.Contract;
+﻿using Api.TodoList.Data.Entity.Model;
+using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
 using Api.TodoList.Service.Mapper;
@@ -8,10 +9,12 @@ namespace Api.TodoList.Service
     public class TaskService : ITaskService
     {
         private readonly IRepository<Data.Entity.Model.Task> _taskRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public TaskService(IRepository<Data.Entity.Model.Task> taskRepository)
+        public TaskService(IRepository<Data.Entity.Model.Task> taskRepository, IRepository<User> userRepository)
         {
             _taskRepository = taskRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<IEnumerable<ReadTaskDTO>> GetTasksAsync()
@@ -29,6 +32,17 @@ namespace Api.TodoList.Service
             }
 
             return TaskMapper.TransformEntityToReadDTO(task);
+        }
+
+        public async Task<IEnumerable<ReadTaskDTO>> GetTasksByUserIdAsync(int userId)
+        {
+            var user = await _userRepository.GetById(userId, u => u.Tasks).ConfigureAwait(false);
+            if (user == null)
+            {
+                throw new Exception($"User {userId} not found.");
+            }
+
+            return user.Tasks.Select(TaskMapper.TransformEntityToReadDTO);
         }
 
         public async Task<ReadTaskDTO> AddTaskAsync(CreateTaskDTO createTaskDTO)

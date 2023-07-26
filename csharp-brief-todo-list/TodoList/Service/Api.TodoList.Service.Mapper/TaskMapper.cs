@@ -12,8 +12,8 @@ namespace Api.TodoList.Service.Mapper
                 IdStatus = taskDTO.IdStatus,
                 Name = taskDTO.Name,
                 Description = taskDTO.Description,
-                DateCreated = taskDTO.DateCreated,
-                DateDue = taskDTO.DateDue
+                DateCreated = DateTime.Now,
+                DateDue = string.IsNullOrEmpty(taskDTO.DateDue) ? null : DateTime.Parse(taskDTO.DateDue)
             };
         }
 
@@ -26,8 +26,8 @@ namespace Api.TodoList.Service.Mapper
                 IdStatus = task.IdStatus,
                 Name = task.Name,
                 Description = task.Description,
-                DateCreated = task.DateCreated,
-                DateDue = task.DateDue
+                DateCreated = task.DateCreated.ToString("dd/MM/yyyy HH:mm:ss"),
+                DateDue = task.DateDue?.ToString("dd/MM/yyyy HH:mm:ss")
             };
         }
     }

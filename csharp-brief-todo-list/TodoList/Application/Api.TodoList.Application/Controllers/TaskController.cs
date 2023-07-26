@@ -25,12 +25,20 @@ namespace Api.TodoList.Application.Controllers
         public async Task<ActionResult> GetTasksAsync() => Ok(await _taskService.GetTasksAsync());
 
         /// <summary>
-        /// Handle get request with params for retrieving a task with his id
+        /// Handle get request with params for retrieving a task by his id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}"), ProducesResponseType(typeof(ReadTaskDTO), 200)]
         public async Task<ActionResult> Get(int id) => Ok(await _taskService.GetTaskByIdAsync(id));
+
+        /// <summary>
+        /// Handle get request with params for retrieving a task by his userId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("User/{id}"), ProducesResponseType(typeof(ReadTaskDTO), 200)]
+        public async Task<ActionResult> GetTasksByUserId(int id) => Ok(await _taskService.GetTasksByUserIdAsync(id));
 
         /// <summary>
         /// Handle post request for creating a new task

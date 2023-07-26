@@ -52,8 +52,8 @@ namespace Api.TodoList.Data.Context
 
                 entity.Property(e => e.IdTask).ValueGeneratedOnAdd();
                 entity.Property(e => e.DateCreated)
-                    .ValueGeneratedOnAddOrUpdate()
-                    .HasColumnType("datetime");
+                    .HasColumnType("datetime")
+                    .HasConversion<DateTime>();
                 entity.Property(e => e.DateDue).HasColumnType("datetime");
                 entity.Property(e => e.Description).HasColumnType("mediumtext");
                 entity.Property(e => e.Name).HasColumnType("mediumtext");

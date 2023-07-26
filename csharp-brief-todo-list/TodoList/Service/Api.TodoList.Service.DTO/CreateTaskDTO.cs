@@ -1,17 +1,23 @@
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Api.TodoList.Service.DTO
 {
     public class CreateTaskDTO
     {
+        [DefaultValue(1)]
         public int IdUser { get; set; }
 
+        [DefaultValue(1)]
         public int IdStatus { get; set; }
 
+        [DefaultValue("Ma nouvelle tâche")]
         public string? Name { get; set; }
 
+        [DefaultValue("")]
         public string? Description { get; set; }
 
-        public DateTime DateCreated { get; set; }
-
-        public DateTime? DateDue { get; set; }
+        [DefaultValue("")]
+        public string? DateDue { get; set; }
     }
 }
