@@ -6,6 +6,7 @@ using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service;
 using Api.TodoList.Service.Contract;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Api.TodoList.Application
 {
@@ -18,10 +19,7 @@ namespace Api.TodoList.Application
             var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
 
             builder.Services.AddDbContext<ITodoListDbContext, TodoListDbContext>(options =>
-                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-                    .LogTo(Console.WriteLine, LogLevel.Information)
-                    .EnableSensitiveDataLogging()
-                    .EnableDetailedErrors());
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
             builder.Services.AddScoped<IRepository<User>, UserRepository>();
             builder.Services.AddScoped<IRepository<Data.Entity.Model.Task>, TaskRepository>();
@@ -32,6 +30,7 @@ namespace Api.TodoList.Application
             builder.Services.AddScoped<IStatusService, StatusService>();
 
             builder.Services.AddControllers();
+            builder.Services.AddAutoMapper(Assembly.Load("Api.TodoList.Service.Mapper"));
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

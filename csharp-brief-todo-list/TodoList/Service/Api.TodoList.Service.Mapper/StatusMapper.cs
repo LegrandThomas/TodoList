@@ -1,30 +1,28 @@
-﻿using Api.TodoList.Service.DTO;
+
+﻿using Api.TodoList.Data.Entity.Model;
+using Api.TodoList.Service.DTO;
+using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
 
 namespace Api.TodoList.Service.Mapper
 {
-    public class StatusMapper
+    public class StatusMapper : Profile
     {
 
-        /// <summary>
-        /// Transform CreateDTO en Entity Object 
-        /// </summary>
-        /// <param name="statusDTO"></param>
-        /// <returns></returns>
-        public static Data.Entity.Model.Status TransformCreateDTOToEntity(CreateStatusDTO statusDTO)
+        public StatusMapper()
         {
-            return new Data.Entity.Model.Status
-            {
-                Value = statusDTO.Value
-            };
-        }
+           
+            CreateMap<Status, CreateStatusDTO>()
+                  .ReverseMap();
 
-        public static ReadStatusDTO TransformEntityToReadDTO(Data.Entity.Model.Status status)
-        {
-            return new ReadStatusDTO
-            {
-                IdStatus = status.IdStatus,
-                Value = status.Value
-            };
+            CreateMap<Status, ReadStatusDTO>()
+               .IncludeBase<Status, CreateStatusDTO>()
+                 .ReverseMap();
         }
+        
     }
 }

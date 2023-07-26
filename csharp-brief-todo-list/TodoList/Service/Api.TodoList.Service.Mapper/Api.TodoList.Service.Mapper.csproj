@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Data\Api.TodoList.Data.Entity\Api.TodoList.Data.Entity.csproj" />
     <ProjectReference Include="..\Api.TodoList.Service.DTO\Api.TodoList.Service.DTO.csproj" />
   </ItemGroup>

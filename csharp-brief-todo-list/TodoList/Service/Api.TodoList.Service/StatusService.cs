@@ -3,16 +3,19 @@ using Api.TodoList.Data.Repository.Contract;
 using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
 using Api.TodoList.Service.Mapper;
+using AutoMapper;
 
 namespace Api.TodoList.Service
 {
     public class StatusService : IStatusService
     {
         private readonly IRepository<Status> _statusRepository;
+        private readonly IMapper _mapper;
 
-        public StatusService(IRepository<Status> statusRepository)
+        public StatusService(IRepository<Status> statusRepository, IMapper mapper)
         {
             _statusRepository = statusRepository;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -22,7 +25,7 @@ namespace Api.TodoList.Service
         public async Task<IEnumerable<ReadStatusDTO>> GetStatusesAsync()
         {
             var status = await _statusRepository.GetAll().ConfigureAwait(false);
-            return status.Select(StatusMapper.TransformEntityToReadDTO);
+            return _mapper.Map<IEnumerable<ReadStatusDTO>>(status);
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace Api.TodoList.Service
                 throw new Exception($"Status {idStatus} not found.");
             }
 
-            return StatusMapper.TransformEntityToReadDTO(status);
+            return _mapper.Map<ReadStatusDTO>(status);  
         }
     }
 }
