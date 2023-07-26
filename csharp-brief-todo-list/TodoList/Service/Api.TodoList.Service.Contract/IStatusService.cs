@@ -1,5 +1,4 @@
-﻿using Api.TodoList.Data.Entity.Model;
-using Api.TodoList.Service.DTO;
+﻿using Api.TodoList.Service.DTO;
 
 namespace Api.TodoList.Service.Contract
 {

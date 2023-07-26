@@ -10,11 +10,13 @@ namespace Api.TodoList.Service
     {
         private readonly IRepository<Data.Entity.Model.Task> _taskRepository;
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Status> _statusRepository;
 
-        public TaskService(IRepository<Data.Entity.Model.Task> taskRepository, IRepository<User> userRepository)
+        public TaskService(IRepository<Data.Entity.Model.Task> taskRepository, IRepository<User> userRepository, IRepository<Status> statusRepository)
         {
             _taskRepository = taskRepository;
             _userRepository = userRepository;
+            _statusRepository = statusRepository;
         }
 
         public async Task<IEnumerable<ReadTaskDTO>> GetTasksAsync()
@@ -43,6 +45,18 @@ namespace Api.TodoList.Service
             }
 
             return user.Tasks.Select(TaskMapper.TransformEntityToReadDTO);
+        }
+
+        public async Task<IEnumerable<ReadTaskDTO>> GetTasksByStatusIdAsync(int statusId)
+        {
+            var status = await _statusRepository.GetById(statusId).ConfigureAwait(false);
+            if (status == null)
+            {
+                throw new Exception($"Status {status} not found.");
+            }
+
+            var tasks = await _taskRepository.GetAll(t => t.User).ConfigureAwait(false);
+            return tasks.Where(t => t.IdStatus == statusId).Select(TaskMapper.TransformEntityToReadDTO);
         }
 
         public async Task<ReadTaskDTO> AddTaskAsync(CreateTaskDTO createTaskDTO)
