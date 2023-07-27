@@ -10,7 +10,7 @@ namespace Api.TodoList.Service.Contract
 
         Task<IEnumerable<ReadTaskDTO>> GetTasksByUserIdAsync(int userId);
 
-        Task<IEnumerable<ReadTaskDTO>> GetTasksByStatusIdAsync(int statusId);
+        Task<IEnumerable<ReadTaskDTO>> GetTasksByStatusIdAsync(int statusId, int userId);
 
         Task<ReadTaskDTO> AddTaskAsync(CreateTaskDTO createDTO);
 
