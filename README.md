@@ -6,11 +6,11 @@
 
 ## Table des matières
 
-1. [Le Projet](#Le-Projet)
-2. [Contexte du projet](#Contexte-du-projet)
+1. [Le Projet](#le-projet)
+2. [Contexte du projet](#contexte-du-projet)
 3. [Equipe pour ce brief](#equipe-pour-ce-brief)
 4. [use case](#use-case)
-5. [Diagramme de classe](#mcd--mld)
+5. [Diagramme de classe](#diagramme-de-classe)
 6. [régles de cardinalités](#régles-de-cardinalités)
 7. [régles métiers et contraintes divers](#régles-métiers-et-contraintes-divers)
 9. [Controller/services/data](#Controllerservicesdata)
