@@ -101,6 +101,9 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 ### régles de cardinalités
 
+- un user peut avoir 0 à plusieurs tâches
+- une tâche 
+
 ### régles métiers et contraintes divers
 
 ### Controller/services/data
