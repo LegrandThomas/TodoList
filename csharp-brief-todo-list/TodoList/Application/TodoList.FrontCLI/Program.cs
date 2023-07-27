@@ -39,7 +39,10 @@ namespace TodoList.FrontCLI
         /// </summary>
         private static async Task ShowWelcomeScreenAsync(HttpClient client)
         {
-            Console.BackgroundColor = BgColorBlue;
+            bool isLogged = false;
+            while (!isLogged)
+            {
+                Console.BackgroundColor = BgColorBlue;
             Console.ForegroundColor = BgColorWhite;
             Console.WriteLine("                 --------------------                 ");
             Console.WriteLine("                 |    To Do List     |                ");
@@ -49,9 +52,7 @@ namespace TodoList.FrontCLI
             // Console.WriteLine("Tapez votre adresse e-mail et votre mot de passe pour continuer...");
             Console.WriteLine("Tapez votre adresse e-mail pour continuer...");
 
-            bool isLogged = false;
-            while (!isLogged)
-            {
+            
                 string? input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
@@ -74,9 +75,10 @@ namespace TodoList.FrontCLI
                     continue;
                 }
 
-                isLogged = true;
+                //isLogged = true;
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 _user = JObject.Parse(jsonContent);
+
                 if (_user == null)
                 {
                     Console.WriteLine("Une erreur inconnue est survenue lors de l'identification...");
@@ -84,11 +86,61 @@ namespace TodoList.FrontCLI
                 }
 
                 _userId = (int)_user["idUser"];
-                Console.WriteLine($"Connecté avec succès en utilisant  {_user["lastName"]}, {_user["firstName"]}...");
+
+
+               if (CheckPassword())
+                {
+                    isLogged = true;
+                    Console.WriteLine($"Connecté avec succès en utilisant  {_user["lastName"]}, {_user["firstName"]}...");
+                    await ShowMenuAsync(client);
+                }
+                else
+                {
+                    continue;
+                }
+
+              
             }
 
-            await ShowMenuAsync(client);
+     
         }
+
+
+        private static bool CheckPassword()
+        {
+
+
+
+            //test match password
+
+            Console.WriteLine("veuillez entrer votre mot de pass");
+            string? tmp_pass = Console.ReadLine();
+
+
+            if (string.IsNullOrEmpty(tmp_pass))
+            {
+                Console.WriteLine("Veuillez saisir une valeur valide");
+              return false;
+           
+
+
+            }
+            else if (tmp_pass == _user["password"].ToString())
+            {
+
+                Console.WriteLine("pass valide");
+                return true;
+
+            }
+            else
+            {
+                Console.WriteLine("pass invalid");
+                return false;
+            }
+
+           
+        }
+   
 
 
         /// <summary>
