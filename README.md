@@ -152,6 +152,7 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 ![postman_GetTasksByStatus](https://github.com/LegrandThomas/TodoList/assets/103045194/a85f89db-3179-4f45-a323-1d8d45ab4382)
 
+</details>
 ---
 
 <details>
