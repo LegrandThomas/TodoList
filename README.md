@@ -154,7 +154,6 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 </details>
 
----
 
 <details>
 <summary>Swagger</summary>
