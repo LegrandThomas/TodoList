@@ -101,10 +101,16 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 ### régles de cardinalités
 
-- un user peut avoir 0 à plusieurs tâches
-- une tâche 
+- un user posséde **0 à plusieurs** tâches
+- une tâche appartient à **1 et 1** seul user
+
+- un status est attribué à **0 à plusieurs** tâches
+- une tâche a **1 et 1** seul status
 
 ### régles métiers et contraintes divers
+
+-si le status d'une tâche est 'terminée' et/ou si il passe "à terminée", la tâche doit avoir une date de résolution.
+-pour une tâche, la date de résolution ne peut pas être antérieure à la date de création
 
 ### Controller/services/data
 
