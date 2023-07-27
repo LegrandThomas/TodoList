@@ -153,6 +153,7 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 ![postman_GetTasksByStatus](https://github.com/LegrandThomas/TodoList/assets/103045194/a85f89db-3179-4f45-a323-1d8d45ab4382)
 
 </details>
+
 ---
 
 <details>
@@ -161,7 +162,6 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 ![swagger1](https://github.com/LegrandThomas/TodoList/assets/103045194/1467ca23-1c83-481d-a203-5f79a64747d3)
 
 ![swagger2](https://github.com/LegrandThomas/TodoList/assets/103045194/dd72f443-e25e-4dbe-8680-4c201c6a244f)
-
 
 </details>
 
