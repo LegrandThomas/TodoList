@@ -107,11 +107,11 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 ### requetages bdd / postman / swagger
 
-<details>
-
- ===> lien githubpage pour carrousell d'images <===
+ ===> lien githubpage pour carrousel d'images <===
 
 https://legrandthomas.github.io/carrousel/
+
+<details>
 
 <summary>Collection Postman</summary>
 
