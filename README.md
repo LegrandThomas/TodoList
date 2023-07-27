@@ -14,7 +14,7 @@
 6. [régles de cardinalités](#régles-de-cardinalités)
 7. [régles métiers et contraintes divers](#régles-métiers-et-contraintes-divers)
 9. [Controller/services/data](#Controllerservicesdata)
-10. [requetages bdd / postman](#requetages-bdd--postman)
+10. [requetages bdd / postman](#requetages-bdd--postman--swagger)
 11. [IOC/DI](#iocdi)
 12. [Commentaires divers](#Commentaires-divers)
 12. [Installation/Mise en route](#installationmise-en-route)
@@ -156,6 +156,10 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 <details>
 <summary>Swagger</summary>
+
+![swagger1](https://github.com/LegrandThomas/TodoList/assets/103045194/1467ca23-1c83-481d-a203-5f79a64747d3)
+
+![swagger2](https://github.com/LegrandThomas/TodoList/assets/103045194/dd72f443-e25e-4dbe-8680-4c201c6a244f)
 
 
 </details>
