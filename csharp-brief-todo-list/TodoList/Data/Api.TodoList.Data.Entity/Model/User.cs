@@ -29,6 +29,12 @@ namespace Api.TodoList.Data.Entity.Model
         public string Email { get; set; } = null!;
 
         /// <summary>
+        /// Password
+        /// </summary>
+        public string Password { get; set; } = null!;
+
+
+        /// <summary>
         /// Tâches
         /// </summary>
         public virtual ICollection<Task> Tasks { get; set; } = new List<Model.Task>();

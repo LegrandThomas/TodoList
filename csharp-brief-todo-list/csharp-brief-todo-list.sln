@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Service.DTO", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.TodoList.Service.Mapper", "TodoList\Service\Api.TodoList.Service.Mapper\Api.TodoList.Service.Mapper.csproj", "{614E14AD-C284-489B-9E54-25C7E331A773}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.FrontCLI", "TodoList\Application\TodoList.FrontCLI\TodoList.FrontCLI.csproj", "{1FEAB899-4BD7-4C5C-BB48-F14A53890C65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.FrontCLI", "TodoList\Application\TodoList.FrontCLI\TodoList.FrontCLI.csproj", "{1FEAB899-4BD7-4C5C-BB48-F14A53890C65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

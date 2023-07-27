@@ -53,7 +53,7 @@ namespace Api.TodoList.Service
             return _mapper.Map<IEnumerable<ReadTaskDTO>>(user.Tasks);
         }
 
-        public async Task<IEnumerable<ReadTaskDTO>> GetTasksByStatusIdAsync(int statusId)
+        public async Task<IEnumerable<ReadTaskDTO>> GetTasksByStatusIdAsync(int statusId, int userId)
         {
             var status = await _statusRepository.GetById(statusId).ConfigureAwait(false);
             if (status == null)
@@ -63,7 +63,7 @@ namespace Api.TodoList.Service
 
             var tasks = await _taskRepository.GetAll(t => t.User).ConfigureAwait(false);
 
-            return _mapper.Map<IEnumerable<ReadTaskDTO>>(tasks.Where(t => t.IdStatus == statusId));
+            return _mapper.Map<IEnumerable<ReadTaskDTO>>(tasks.Where(t => t.IdStatus == statusId && t.IdUser == userId));
 
         }
 

@@ -21,9 +21,10 @@ namespace TodoList.FrontCLI
         private const ConsoleColor BgColorWhite = ConsoleColor.White;
         private const ConsoleColor BgColorGreen = ConsoleColor.Green;
         private const ConsoleColor BgColorRed = ConsoleColor.Red;
-        
+
         private static JObject _user = null;
         private static int _userId;
+        private static int _statusId;
 
         private static async Task Main() // Modifiez la méthode Main pour qu'elle soit asynchrone
         {
@@ -38,7 +39,10 @@ namespace TodoList.FrontCLI
         /// </summary>
         private static async Task ShowWelcomeScreenAsync(HttpClient client)
         {
-            Console.BackgroundColor = BgColorBlue;
+            bool isLogged = false;
+            while (!isLogged)
+            {
+                Console.BackgroundColor = BgColorBlue;
             Console.ForegroundColor = BgColorWhite;
             Console.WriteLine("                 --------------------                 ");
             Console.WriteLine("                 |    To Do List     |                ");
@@ -48,16 +52,14 @@ namespace TodoList.FrontCLI
             // Console.WriteLine("Tapez votre adresse e-mail et votre mot de passe pour continuer...");
             Console.WriteLine("Tapez votre adresse e-mail pour continuer...");
 
-            bool isLogged = false;
-            while (!isLogged)
-            {
+            
                 string? input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
                     Console.WriteLine("Tapez votre adresse e-mail...");
                     continue;
                 }
-                
+
                 if (!input.Contains("@"))
                 {
                     Console.WriteLine("Tapez une adresse e-mail valide...");
@@ -73,9 +75,10 @@ namespace TodoList.FrontCLI
                     continue;
                 }
 
-                isLogged = true;
+                //isLogged = true;
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 _user = JObject.Parse(jsonContent);
+
                 if (_user == null)
                 {
                     Console.WriteLine("Une erreur inconnue est survenue lors de l'identification...");
@@ -83,11 +86,61 @@ namespace TodoList.FrontCLI
                 }
 
                 _userId = (int)_user["idUser"];
-                Console.WriteLine($"Connecté avec succès en utilisant  {_user["lastName"]}, {_user["firstName"]}...");
+
+
+               if (CheckPassword())
+                {
+                    isLogged = true;
+                    Console.WriteLine($"Connecté avec succès en utilisant  {_user["lastName"]}, {_user["firstName"]}...");
+                    await ShowMenuAsync(client);
+                }
+                else
+                {
+                    continue;
+                }
+
+              
             }
-            
-            await ShowMenuAsync(client);
+
+     
         }
+
+
+        private static bool CheckPassword()
+        {
+
+
+
+            //test match password
+
+            Console.WriteLine("veuillez entrer votre mot de pass");
+            string? tmp_pass = Console.ReadLine();
+
+
+            if (string.IsNullOrEmpty(tmp_pass))
+            {
+                Console.WriteLine("Veuillez saisir une valeur valide");
+              return false;
+           
+
+
+            }
+            else if (tmp_pass == _user["password"].ToString())
+            {
+
+                Console.WriteLine("pass valide");
+                return true;
+
+            }
+            else
+            {
+                Console.WriteLine("pass invalid");
+                return false;
+            }
+
+           
+        }
+   
 
 
         /// <summary>
@@ -120,24 +173,15 @@ namespace TodoList.FrontCLI
 
                     break;
                 case MenuOptionShowTasks:
+
                     HttpResponseMessage response = await client.GetAsync($"api/Task/User/{_userId}");
-                    if (!response.IsSuccessStatusCode)
+
+                    var tasks = await verifyContentAndReturnJsonContent(response);
+
+                    if(!String.IsNullOrEmpty(tasks))
                     {
-                        Console.WriteLine("Une erreur est survenue lors de la récupération des tâches...");
-                        break;
+                        showTasksByUser(tasks);
                     }
-
-                    string jsonContent = await response.Content.ReadAsStringAsync();
-                    var tasks = JArray.Parse(jsonContent);
-
-                    var taskNamesAndDescriptions = tasks.Select(taskObj =>
-                        $"- Nom: {taskObj["name"]}\n" +
-                        $"- Description: {taskObj["description"]}\n" +
-                        $"- Statut: {taskObj["status"]}\n" +
-                        $"- Date de création: {taskObj["dateCreated"]}\n" +
-                        $"- Date d'échéance: {taskObj["dateDue"]}\n");
-
-                    Console.WriteLine(string.Join(", ", taskNamesAndDescriptions));
                     break;
 
 
@@ -155,9 +199,24 @@ namespace TodoList.FrontCLI
                     break;
                 case MenuOptionFilterTasksByStatus:
                     // Appeler la méthode correspondant à l'option 5
-                    Console.ForegroundColor = BgColorGreen;
-                    Console.WriteLine("Option 5 sélectionnée.");
-                    Console.ForegroundColor = BgColorWhite;
+
+                    string choixStatus = showTaskByStatus();
+
+                    if(!int.TryParse(choixStatus, out _statusId))
+                    {
+                        Console.WriteLine("Veuillez sélectionner un statut valide");
+                        break; 
+                    }
+
+                    HttpResponseMessage tasksByStatus = await client.GetAsync($"api/Task/User/{_userId}/Status/{_statusId}");
+
+                    var allTasksByStatus= await verifyContentAndReturnJsonContent(tasksByStatus);
+
+                    if(allTasksByStatus != null) 
+                    {
+                        showTasksByUser(allTasksByStatus);
+                    }
+                   
                     break;
                 case MenuOptionQuit:
                     Console.WriteLine("Le programme va se terminer. Appuyez sur une touche pour quitter...");
@@ -339,6 +398,45 @@ namespace TodoList.FrontCLI
             } while (addAnotherTask);
 
             return true;
+        }
+
+        private static async  Task<string> verifyContentAndReturnJsonContent(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Une erreur est survenue lors de la récupération des tâches...");
+                return "";
+            }
+
+            string jsonContent = await response.Content.ReadAsStringAsync();
+
+            return jsonContent; 
+        }
+
+
+        private static async void showTasksByUser(string jsonContent)
+        {
+            var tasks = JArray.Parse(jsonContent);
+            var taskNamesAndDescriptions = tasks.Select(taskObj =>
+               $"- Nom: {taskObj["name"]}\n" +
+               $"- Description: {taskObj["description"]}\n" +
+               $"- Statut: {taskObj["status"]}\n" +
+               $"- Date de création: {taskObj["dateCreated"]}\n" +
+               $"- Date d'échéance: {taskObj["dateDue"]}\n");
+
+            Console.WriteLine(string.Join(", ", taskNamesAndDescriptions));
+        }
+
+        private static  string showTaskByStatus()
+        {
+            Console.WriteLine("Veuillez Sélectionner un statut : ");
+            Console.WriteLine("1 - A Faire");
+            Console.WriteLine("2 - En cours");
+            Console.WriteLine("3 - Terminé");
+
+            string choixStatut = Console.ReadLine().Trim();
+
+            return choixStatut;
         }
     }
 }
