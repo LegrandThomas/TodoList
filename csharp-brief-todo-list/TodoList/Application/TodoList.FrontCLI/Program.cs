@@ -89,57 +89,7 @@ namespace TodoList.FrontCLI
                 isLogged = true;
                 await ShowMenuAsync(client);
 
-                //if (CheckPassword())
-                // {
-                //     isLogged = true;
-                //     Console.WriteLine($"Connecté avec succès en utilisant  {_user["lastName"]}, {_user["firstName"]}...");
-                //     await ShowMenuAsync(client);
-                // }
-                // else
-                // {
-                //     continue;
-                // }
-
-
             }
-
-     
-        }
-
-
-        private static bool CheckPassword()
-        {
-
-
-
-            //test match password
-
-            Console.WriteLine("veuillez entrer votre mot de pass");
-            string? tmp_pass = Console.ReadLine();
-
-
-            if (string.IsNullOrEmpty(tmp_pass))
-            {
-                Console.WriteLine("Veuillez saisir une valeur valide");
-              return false;
-           
-
-
-            }
-            else if (tmp_pass == _user["password"].ToString())
-            {
-
-                Console.WriteLine("pass valide");
-                return true;
-
-            }
-            else
-            {
-                Console.WriteLine("pass invalid");
-                return false;
-            }
-
-           
         }
    
 
