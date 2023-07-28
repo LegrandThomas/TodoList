@@ -406,7 +406,7 @@ namespace TodoList.FrontCLI
                 Console.WriteLine("- 4 : Modifier la date de création");
                 Console.WriteLine("- 5 : Modifier la date d'échéance");
 
-                string? editionOption = null;
+                string? editionOption = Console.ReadLine();
                 while (!new[]{"1", "2", "3", "4", "5"}.Contains(editionOption))
                 {
                     editionOption = Console.ReadLine();
@@ -494,6 +494,10 @@ namespace TodoList.FrontCLI
                         }
                         break;
                     case "5":
+                        if (taskToEdit["idStatus"].Value<int>() == 3)
+                        {
+                            Console.WriteLine("La tâche est terminée, la date ne peut pas être modifiée ...");
+                        }
                         break;
                 }
 
