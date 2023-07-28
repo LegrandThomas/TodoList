@@ -64,7 +64,7 @@ namespace Api.TodoList.Application.Controllers
             }
             catch (Exception ex)
             {
-                return HandleException(ex);
+                return Conflict(new { message = "Erreur lors de la création de la tâche : Un champ en double existe déjà." });
             }
         }
 
@@ -99,17 +99,11 @@ namespace Api.TodoList.Application.Controllers
             }
             catch (Exception ex)
             {
-                return HandleException(ex);
+                return StatusCode(500, new { message = "Erreur interne du serveur lors de la suppression de la tâche" });
             }
         }
 
         // Méthode privée pour gérer les exceptions et renvoyer des réponses HTTP appropriées.
-        private ActionResult HandleException(Exception ex)
-        {
-           
-                // Si c'est une exception de duplicata, renvoyez une réponse 409 (Conflict) avec un message d'erreur approprié.
-                return Conflict(new { message = "Erreur lors de la création de la tâche : Un champ en double existe déjà." });
-           
-        }
+       
     }
 }
