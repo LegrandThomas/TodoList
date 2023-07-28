@@ -13,11 +13,10 @@
 5. [Diagramme de classe](#diagramme-de-classe)
 6. [régles de cardinalités](#régles-de-cardinalités)
 7. [régles métiers et contraintes divers](#régles-métiers-et-contraintes-divers)
-9. [Controller/services/data](#Controllerservicesdata)
-10. [requetages bdd / postman](#requetages-bdd--postman--swagger)
-11. [IOC/DI](#iocdi)
-12. [Commentaires divers](#Commentaires-divers)
-12. [Installation/Mise en route](#installationmise-en-route)
+8. [requetages bdd / postman](#requetages-bdd--postman--swagger)
+9. [IOC/DI](#iocdi)
+10. [Commentaires divers](#Commentaires-divers)
+11. [Installation/Mise en route](#installationmise-en-route)
 
 
 
@@ -113,7 +112,6 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 -si le status d'une tâche est 'terminée' et/ou si il passe "à terminée", la tâche doit avoir une date de résolution.
 -pour une tâche, la date de résolution ne peut pas être antérieure à la date de création
 
-### Controller/services/data
 
 ### requetages bdd / postman / swagger
 
@@ -180,6 +178,8 @@ https://legrandthomas.github.io/carrousel/
 </details>
 
 ### IOC/DI:
+
+![injec](https://github.com/LegrandThomas/TodoList/assets/103045194/85821bb0-8fd5-4399-b89b-2c48d045e7f9)
 
 ### Commentaires divers:
 
