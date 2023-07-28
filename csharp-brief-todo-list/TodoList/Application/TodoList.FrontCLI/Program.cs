@@ -193,6 +193,7 @@ namespace TodoList.FrontCLI
                     Console.ForegroundColor = BgColorWhite;
                     break;
                 case MenuOptionDeleteTask:
+                    // Appeler la méthode correspondant à l'option 4
                     await DeleteTaskAsync(client);
                     Console.ForegroundColor = BgColorGreen;
                     Console.WriteLine("Option 4 sélectionnée.");
@@ -420,7 +421,6 @@ namespace TodoList.FrontCLI
         private static async void showTasksByUser(string jsonContent)
         {
             var tasks = JArray.Parse(jsonContent);
-            //Console.WriteLine(tasks);
 
             var taskNamesAndDescriptions = tasks.Select(taskObj =>
             {
@@ -494,50 +494,67 @@ namespace TodoList.FrontCLI
                 return false;
             }
 
-            var taskId = (int)taskToDelete["idTask"];
-
-            HttpResponseMessage deleteResponse = await client.DeleteAsync($"api/Task/{taskId}");
-            if (!deleteResponse.IsSuccessStatusCode)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Une erreur est survenue lors de la suppression de la tâche.");
-                Console.ForegroundColor = ConsoleColor.White;
-                return false;
-            }
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Tâche '{taskName}' supprimée avec succès !");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Détails de la tâche à supprimer :");
+            Console.WriteLine($"Nom : {taskToDelete["name"]}");
+            Console.WriteLine($"Description : {taskToDelete["description"]}");
             Console.ForegroundColor = ConsoleColor.White;
 
-            string choix;
-            do
+            Console.WriteLine("Voulez-vous vraiment supprimer cette tâche ? (O/N)");
+            string confirmation = Console.ReadLine().ToLower();
+
+            if (confirmation == "o")
             {
-                Console.WriteLine("\nSouhaitez-vous retourner au menu ?\n");
-                Console.WriteLine(" 1. Retour au Menu");
-                Console.WriteLine(" 2. Quitter");
+                var taskId = (int)taskToDelete["idTask"];
 
-                choix = Console.ReadLine();
-
-                switch (choix)
+                HttpResponseMessage deleteResponse = await client.DeleteAsync($"api/Task/{taskId}");
+                if (!deleteResponse.IsSuccessStatusCode)
                 {
-                    case "1":
-                        Console.Clear();
-                        await ShowMenuAsync(client);
-                        break;
-                    case "2":
-                        Console.WriteLine("Le programme va se terminer. Appuyez sur une touche pour quitter...");
-                        Console.ReadKey();
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Option invalide. Veuillez réessayer.\n");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        break;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Une erreur est survenue lors de la suppression de la tâche.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    return false;
                 }
-            } while (choix != "1" && choix != "2");
 
-            return true;
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Tâche '{taskName}' supprimée avec succès !");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                string choix;
+                do
+                {
+                    Console.WriteLine("\nSouhaitez-vous retourner au menu ?\n");
+                    Console.WriteLine(" 1. Retour au Menu");
+                    Console.WriteLine(" 2. Quitter");
+
+                    choix = Console.ReadLine();
+
+                    switch (choix)
+                    {
+                        case "1":
+                            Console.Clear();
+                            await ShowMenuAsync(client);
+                            break;
+                        case "2":
+                            Console.WriteLine("Le programme va se terminer. Appuyez sur une touche pour quitter...");
+                            Console.ReadKey();
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Option invalide. Veuillez réessayer.\n");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            break;
+                    }
+                } while (choix != "1" && choix != "2");
+
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Suppression annulée.");
+                return false;
+            }
         }
 
     }
