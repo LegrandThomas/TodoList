@@ -474,13 +474,15 @@ namespace TodoList.FrontCLI
                                 continue;
                             }
 
-                            if (!DateTime.TryParse(newDate, out var newDateTime))
+                            if (!DateTime.TryParseExact(newDate, "dd/MM/yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out var newDateTime))
                             {
                                 Console.WriteLine($"{newDateTime} n'est pas valide pour continuer ...");
                                 continue;
                             }
 
-                            if (taskToEdit["dateCreated"].Value<DateTime>().Equals(newDateTime))
+                            var oldDate = DateTime.ParseExact(taskToEdit["dateCreated"].Value<string>(),
+                                "dd/MM/yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None);
+                            if (oldDate.Equals(newDateTime))
                             {
                                 Console.WriteLine("La nouvelle date doit être différente de l'ancienne ...");
                                 continue;
@@ -507,7 +509,7 @@ namespace TodoList.FrontCLI
                 Console.WriteLine("- 1 : Oui");
                 Console.WriteLine("- 2 : Non et revenir au menu principal");
                 string? optionChoice = Console.ReadLine();
-                while (optionChoice is not "1" or "2")
+                while (!new[] { "1", "2" }.Contains(optionChoice))
                 {
                     optionChoice = Console.ReadLine();
                     Console.WriteLine("Veuillez sélectionner une option valide 1, 2 pour continuer ...");
