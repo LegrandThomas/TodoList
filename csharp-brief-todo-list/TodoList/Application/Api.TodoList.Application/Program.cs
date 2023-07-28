@@ -41,7 +41,7 @@ namespace Api.TodoList.Application
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options => options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,"Api.TodoList.Application.xml")));
 
             // Ajouter la gestion des CORS
             builder.Services.AddCors(options =>
