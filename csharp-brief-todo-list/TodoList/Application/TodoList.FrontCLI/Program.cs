@@ -126,12 +126,12 @@ namespace TodoList.FrontCLI
                     }
                     break;
 
-
                 case MenuOptionModifyTask:
                     // Appeler la méthode correspondant à l'option 3
                     Console.ForegroundColor = BgColorGreen;
                     Console.WriteLine("Option 3 sélectionnée.");
                     Console.ForegroundColor = BgColorWhite;
+                    await ModifyTaskAsync(client);
                     break;
                 case MenuOptionDeleteTask:
                     // Appeler la méthode correspondant à l'option 4
@@ -180,7 +180,7 @@ namespace TodoList.FrontCLI
         /// <summary>
         /// permet à l'utilisateur de s'ajouter une tâche
         /// </summary>
-        private static async Task<bool> AddTask(HttpClient client)
+        private static async Task AddTask(HttpClient client)
         {
             bool addAnotherTask = true;
             do
@@ -301,8 +301,6 @@ namespace TodoList.FrontCLI
                     }
                 } while (choix != "1" && choix != "2");
             } while (addAnotherTask);
-
-            return true;
         }
 
         private static async Task<string> VerifyContentAndReturnJsonContent(HttpResponseMessage response)
@@ -363,6 +361,114 @@ namespace TodoList.FrontCLI
             string choixStatut = Console.ReadLine().Trim();
 
             return choixStatut;
+        }
+
+        // todo in progress
+        private static async Task ModifyTaskAsync(HttpClient client)
+        {
+            bool editAnotherTask = true;
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("***   Vous avez choisi de modifier une tâche.   ***\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Veuillez indiquer le nom de la tâche ou l'id de la tâche : ");
+
+            while (editAnotherTask)
+            {
+                string? taskNameOrId = null;
+                while (string.IsNullOrEmpty(taskNameOrId))
+                {
+                    taskNameOrId = Console.ReadLine();
+                    Console.WriteLine("Veuillez indiquer le nom de la tâche ou son id pour continuer ...");
+                }
+
+                JToken? taskToEdit = null;
+
+                taskToEdit = int.TryParse(taskNameOrId, out var taskId) ?
+                    _user["tasks"].FirstOrDefault(task => task["idTask"].Value<int>() == taskId) :
+                    _user["tasks"].FirstOrDefault(task => task["name"].Value<string>() == taskNameOrId);
+
+                if (taskToEdit == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"La tâche '{taskNameOrId}' n'a pas été trouvée.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    return;
+                }
+
+                Console.WriteLine("Choisir une option d'édition :");
+                Console.WriteLine("- 1 : Modifier le nom");
+                Console.WriteLine("- 2 : Modifier la description");
+                Console.WriteLine("- 3 : Modifier le status");
+                Console.WriteLine("- 4 : Modifier le status");
+                Console.WriteLine("- 5 : Modifier la date de création");
+                Console.WriteLine("- 6 : Modifier la date d'échéance");
+
+                string? editionOption = null;
+                while (editionOption is not "1" or "2" or "3" or "4" or "5" or "6")
+                {
+                    editionOption = Console.ReadLine();
+                    Console.WriteLine("Veuillez sélectionner une option valide 1, 2, 3, 4, 5, 6 pour continuer ...");
+                }
+
+                switch (editionOption)
+                {
+                    case "1":
+                        Console.WriteLine($"Ancien nom : {taskToEdit["name"]}");
+                        Console.WriteLine("Entrez un nouveau nom :");
+                        string? newName = null;
+                        while (string.IsNullOrEmpty(newName))
+                        {
+                            newName = Console.ReadLine();
+                            if (taskToEdit["name"].Value<string>() == newName)
+                            {
+                                newName = null;
+                                Console.WriteLine("Le nouveau nom doit être différent de l'ancien ...");
+                            }
+
+                            Console.WriteLine("Entrez un nom pour continuer ...");
+                        }
+
+                        taskToEdit["name"] = newName;
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        break;
+                    case "4":
+                        break;
+                    case "5":
+                        break;
+                    case "6":
+                        break;
+                }
+
+                HttpResponseMessage updateResponse = await client.PutAsJsonAsync("api/Task/", taskToEdit.ToObject<JObject>());
+                if (!updateResponse.IsSuccessStatusCode)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Une erreur est survenue lors de la modification de la tâche.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                Console.WriteLine("Revenir au menu d'édition :");
+                Console.WriteLine("- 1 : Oui");
+                Console.WriteLine("- 2 : Non et revenir au menu principal");
+                string? optionChoice = null;
+                while (optionChoice is not "1" or "2")
+                {
+                    optionChoice = Console.ReadLine();
+                    Console.WriteLine("Veuillez sélectionner une option valide 1, 2 pour continuer ...");
+                }
+
+                switch (optionChoice)
+                {
+                    case "2":
+                        Console.Clear();
+                        await ShowMenuAsync(client);
+                        break;
+                }
+            }
         }
 
         private static async Task DeleteTaskAsync(HttpClient client)
