@@ -472,7 +472,7 @@ namespace TodoList.FrontCLI
             Console.ForegroundColor = ConsoleColor.White;
 
             Console.WriteLine("Veuillez entrer le nom de la tâche que vous souhaitez supprimer :");
-            string taskName = Console.ReadLine();
+            string taskName = Console.ReadLine().ToLower();
 
             // Récupérer les tâches de l'utilisateur pour vérifier si la tâche existe
             HttpResponseMessage response = await client.GetAsync($"api/Task/User/{_userId}");
