@@ -5,7 +5,5 @@ namespace Api.TodoList.Service.DTO
         public int IdTask { get; set; }
 
         public string DateCreated { get; set; }
-
-
     }
 }

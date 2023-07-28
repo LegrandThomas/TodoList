@@ -3,6 +3,5 @@
     public class ReadStatusDTO : CreateStatusDTO
     {
         public int IdStatus { get; set; }
-
     }
 }

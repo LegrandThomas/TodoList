@@ -13,7 +13,6 @@ namespace Api.TodoList.Service
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Status> _statusRepository;
 
-
         private readonly IMapper _mapper;
 
         public TaskService(IRepository<Data.Entity.Model.Task> taskRepository, IRepository<User> userRepository, IRepository<Status> statusRepository, IMapper mapper)
@@ -38,7 +37,6 @@ namespace Api.TodoList.Service
             {
                 throw new Exception($"Task {id} not found.");
             }
-
             return _mapper.Map<ReadTaskDTO>(task);
         }
 
@@ -49,7 +47,6 @@ namespace Api.TodoList.Service
             {
                 throw new Exception($"User {userId} not found.");
             }
-
             return _mapper.Map<IEnumerable<ReadTaskDTO>>(user.Tasks);
         }
 
@@ -62,9 +59,7 @@ namespace Api.TodoList.Service
             }
 
             var tasks = await _taskRepository.GetAll(t => t.User).ConfigureAwait(false);
-
             return _mapper.Map<IEnumerable<ReadTaskDTO>>(tasks.Where(t => t.IdStatus == statusId && t.IdUser == userId));
-
         }
 
         public async Task<ReadTaskDTO> AddTaskAsync(CreateTaskDTO createTaskDTO)

@@ -57,8 +57,6 @@ namespace Api.TodoList.Service
             var userAdded = await _userRepository.Add(userToAdd).ConfigureAwait(false);
 
             return _mapper.Map<ReadUserDTO>(userAdded);
-
-
         }
 
         public async Task<ReadUserDTO> RemoveUserAsync(int id)

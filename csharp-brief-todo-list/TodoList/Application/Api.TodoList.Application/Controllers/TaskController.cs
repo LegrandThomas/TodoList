@@ -69,7 +69,7 @@ namespace Api.TodoList.Application.Controllers
         }
 
         /// <summary>
-        /// Handle post request for creating a new task
+        /// Handle put request for updating a task
         /// </summary>
         /// <param name="taskDTO"></param>
         /// <returns>Task DTO</returns>
