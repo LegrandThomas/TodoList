@@ -1,6 +1,7 @@
 ﻿using Api.TodoList.Service.Contract;
 using Api.TodoList.Service.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Api.TodoList.Application.Controllers
 {
@@ -78,11 +79,10 @@ namespace Api.TodoList.Application.Controllers
         {
             if (string.IsNullOrEmpty(taskJSON))
                 return BadRequest("La tâche est vide ou nulle.");
-            // todo json to dto ?
-            return null;
-            // return Ok(await _taskService.UpdateTaskAsync(taskDTO).ConfigureAwait(false));
-        }
 
+            var taskDTO = JsonConvert.DeserializeObject<ReadTaskDTO>(taskJSON);
+            return Ok(await _taskService.UpdateTaskAsync(taskDTO).ConfigureAwait(false));
+        }
 
         /// <summary>
         /// Handle delete request for deleting a task by his id
