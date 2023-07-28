@@ -69,6 +69,15 @@ namespace Api.TodoList.Application.Controllers
         }
 
         /// <summary>
+        /// Handle post request for creating a new task
+        /// </summary>
+        /// <param name="taskDTO"></param>
+        /// <returns>Task DTO</returns>
+        [HttpPut, ProducesResponseType(typeof(IEnumerable<ReadTaskDTO>), 201)]
+        public async Task<ActionResult> Put([FromBody] CreateTaskDTO taskDTO) => Ok(await _taskService.UpdateTaskAsync(taskDTO).ConfigureAwait(false));
+
+
+        /// <summary>
         /// Handle delete request for deleting a task by his id
         /// </summary>
         /// <param name="id">Task id</param>

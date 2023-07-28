@@ -88,6 +88,19 @@ namespace Api.TodoList.Service
           
         }
 
+        public async Task<ReadTaskDTO> UpdateTaskAsync(CreateTaskDTO createTaskDTO)
+        {
+            if (createTaskDTO == null)
+            {
+                throw new ArgumentNullException(nameof(createTaskDTO));
+            }
+
+            var taskToUpdate = _mapper.Map<Task>(createTaskDTO);
+            var taskUpdated = await _taskRepository.Update(taskToUpdate).ConfigureAwait(false);
+
+            return _mapper.Map<ReadTaskDTO>(taskUpdated);
+        }
+
         public async Task<ReadTaskDTO> RemoveTaskAsync(int id)
         {
             var task = await _taskRepository.GetById(id).ConfigureAwait(false);

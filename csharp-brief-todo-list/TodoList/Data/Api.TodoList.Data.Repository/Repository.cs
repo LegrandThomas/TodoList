@@ -71,7 +71,6 @@ namespace Api.TodoList.Data.Repository
             return await query.FirstOrDefaultAsync(lambda).ConfigureAwait(false);
         }
 
-
         public async Task<T?> GetBy(string fieldName, object fieldValue, params Expression<Func<T, object>>[] includes)
         {
             var property = typeof(T).GetProperties()
@@ -115,6 +114,19 @@ namespace Api.TodoList.Data.Repository
             await _dbContext.SaveChangesAsync().ConfigureAwait(false);
 
             return elementAdded.Entity;
+        }
+
+        /// <summary>
+        /// Update entity of type T from the database
+        /// </summary>
+        /// <param name="entity">Entity of type T</param>
+        /// <returns>Entity of type T</returns>
+        public async Task<T> Update(T entity)
+        {
+            var elementUpdated = Entities.Update(entity);
+            await _dbContext.SaveChangesAsync().ConfigureAwait(false);
+
+            return elementUpdated.Entity;
         }
 
         /// <summary>

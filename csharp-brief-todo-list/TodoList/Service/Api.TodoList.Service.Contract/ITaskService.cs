@@ -14,6 +14,8 @@ namespace Api.TodoList.Service.Contract
 
         Task<ReadTaskDTO> AddTaskAsync(CreateTaskDTO createDTO);
 
+        Task<ReadTaskDTO> UpdateTaskAsync(CreateTaskDTO createTaskDTO);
+
         Task<ReadTaskDTO> RemoveTaskAsync(int id);
     }
 }

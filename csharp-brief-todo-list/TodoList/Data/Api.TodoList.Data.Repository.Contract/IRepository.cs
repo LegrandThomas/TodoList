@@ -12,6 +12,8 @@ namespace Api.TodoList.Data.Repository.Contract
 
         Task<T> Add(T entity);
 
+        Task<T> Update(T entity);
+
         Task<T> Remove(T entity);
     }
 }
