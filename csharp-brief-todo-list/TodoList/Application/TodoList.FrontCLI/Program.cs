@@ -1,4 +1,7 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
 using Newtonsoft.Json.Linq;
 
 namespace TodoList.FrontCLI
@@ -443,7 +446,7 @@ namespace TodoList.FrontCLI
                         break;
                 }
 
-                HttpResponseMessage updateResponse = await client.PutAsJsonAsync("api/Task/", taskToEdit.ToObject<JObject>());
+                HttpResponseMessage updateResponse = await client.PutAsJsonAsync("api/Task/", taskToEdit.ToObject<JObject>().ToString());
                 if (!updateResponse.IsSuccessStatusCode)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;

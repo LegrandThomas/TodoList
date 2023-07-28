@@ -73,8 +73,15 @@ namespace Api.TodoList.Application.Controllers
         /// </summary>
         /// <param name="taskDTO"></param>
         /// <returns>Task DTO</returns>
-        [HttpPut, ProducesResponseType(typeof(IEnumerable<ReadTaskDTO>), 201)]
-        public async Task<ActionResult> Put([FromBody] CreateTaskDTO taskDTO) => Ok(await _taskService.UpdateTaskAsync(taskDTO).ConfigureAwait(false));
+        [HttpPut, ProducesResponseType(typeof(ReadTaskDTO), 201)]
+        public async Task<ActionResult> Put([FromBody] string taskJSON)
+        {
+            if (string.IsNullOrEmpty(taskJSON))
+                return BadRequest("La tâche est vide ou nulle.");
+            // todo json to dto ?
+            return null;
+            // return Ok(await _taskService.UpdateTaskAsync(taskDTO).ConfigureAwait(false));
+        }
 
 
         /// <summary>
