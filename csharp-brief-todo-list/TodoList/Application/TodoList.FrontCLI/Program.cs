@@ -192,7 +192,7 @@ namespace TodoList.FrontCLI
                     Console.ForegroundColor = BgColorWhite;
                     break;
                 case MenuOptionDeleteTask:
-                    // Appeler la méthode correspondant à l'option 4
+                    await DeleteTaskAsync(client);
                     Console.ForegroundColor = BgColorGreen;
                     Console.WriteLine("Option 4 sélectionnée.");
                     Console.ForegroundColor = BgColorWhite;
@@ -438,5 +438,81 @@ namespace TodoList.FrontCLI
 
             return choixStatut;
         }
+
+        private static async Task<bool> DeleteTaskAsync(HttpClient client)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("***   Vous avez choisi de supprimer une tâche.   ***\n");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine("Veuillez entrer le nom de la tâche que vous souhaitez supprimer :");
+            string taskName = Console.ReadLine();
+
+            // Récupérer les tâches de l'utilisateur pour vérifier si la tâche existe
+            HttpResponseMessage response = await client.GetAsync($"api/Task/User/{_userId}");
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Une erreur est survenue lors de la récupération des tâches...");
+                return false;
+            }
+
+            string jsonContent = await response.Content.ReadAsStringAsync();
+            var tasks = JArray.Parse(jsonContent);
+            var taskToDelete = tasks.FirstOrDefault(task => task["name"].ToString() == taskName);
+
+            if (taskToDelete == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"La tâche '{taskName}' n'a pas été trouvée.");
+                Console.ForegroundColor = ConsoleColor.White;
+                return false;
+            }
+
+            var taskId = (int)taskToDelete["idTask"];
+
+            HttpResponseMessage deleteResponse = await client.DeleteAsync($"api/Task/{taskId}");
+            if (!deleteResponse.IsSuccessStatusCode)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Une erreur est survenue lors de la suppression de la tâche.");
+                Console.ForegroundColor = ConsoleColor.White;
+                return false;
+            }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Tâche '{taskName}' supprimée avec succès !");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            string choix;
+            do
+            {
+                Console.WriteLine("\nSouhaitez-vous retourner au menu ?\n");
+                Console.WriteLine(" 1. Retour au Menu");
+                Console.WriteLine(" 2. Quitter");
+
+                choix = Console.ReadLine();
+
+                switch (choix)
+                {
+                    case "1":
+                        Console.Clear();
+                        await ShowMenuAsync(client);
+                        break;
+                    case "2":
+                        Console.WriteLine("Le programme va se terminer. Appuyez sur une touche pour quitter...");
+                        Console.ReadKey();
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Option invalide. Veuillez réessayer.\n");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                }
+            } while (choix != "1" && choix != "2");
+
+            return true;
+        }
+
     }
 }
