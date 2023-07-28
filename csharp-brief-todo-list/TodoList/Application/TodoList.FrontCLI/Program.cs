@@ -1,7 +1,4 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using Newtonsoft.Json;
+﻿using System.Net.Http.Json;
 using Newtonsoft.Json.Linq;
 
 namespace TodoList.FrontCLI
@@ -29,7 +26,7 @@ namespace TodoList.FrontCLI
 
         private static async Task Main() // Modifiez la méthode Main pour qu'elle soit asynchrone
         {
-            using var client = new HttpClient();
+            using HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(" https://localhost:7063/");
 
             await ShowWelcomeScreenAsync(client); // Attend la fin de l'exécution de ShowWelcomeScreenAsync
@@ -53,7 +50,6 @@ namespace TodoList.FrontCLI
                 // Console.WriteLine("Tapez votre adresse e-mail et votre mot de passe pour continuer...");
                 Console.WriteLine("Tapez votre adresse e-mail pour continuer...");
 
-            
                 string? input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
@@ -67,8 +63,6 @@ namespace TodoList.FrontCLI
                     continue;
                 }
 
-                // todo password checking ? route login ?
-
                 HttpResponseMessage response = await client.GetAsync($"api/User/Email/{input}");
                 if (!response.IsSuccessStatusCode)
                 {
@@ -76,24 +70,20 @@ namespace TodoList.FrontCLI
                     continue;
                 }
 
-                //isLogged = true;
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 _user = JObject.Parse(jsonContent);
 
                 if (_user == null)
                 {
                     Console.WriteLine("Une erreur inconnue est survenue lors de l'identification...");
-                    isLogged = false;
+                    continue;
                 }
-                
-                _userId = (int)_user["idUser"];
-                isLogged = true;
-                await ShowMenuAsync(client);
 
+                isLogged = true;
+                _userId = (int)_user["idUser"];
+                await ShowMenuAsync(client);
             }
         }
-   
-
 
         /// <summary>
         /// affiche le Menu principal
@@ -128,11 +118,11 @@ namespace TodoList.FrontCLI
 
                     HttpResponseMessage response = await client.GetAsync($"api/Task/User/{_userId}");
 
-                    var tasks = await verifyContentAndReturnJsonContent(response);
+                    string tasks = await VerifyContentAndReturnJsonContent(response);
 
-                    if(!String.IsNullOrEmpty(tasks))
+                    if(!string.IsNullOrEmpty(tasks))
                     {
-                        showTasksByUser(tasks);
+                        ShowTasksByUser(tasks);
                     }
                     break;
 
@@ -142,7 +132,6 @@ namespace TodoList.FrontCLI
                     Console.ForegroundColor = BgColorGreen;
                     Console.WriteLine("Option 3 sélectionnée.");
                     Console.ForegroundColor = BgColorWhite;
-                    await ModifyTaskAsync(client);
                     break;
                 case MenuOptionDeleteTask:
                     // Appeler la méthode correspondant à l'option 4
@@ -154,7 +143,7 @@ namespace TodoList.FrontCLI
                 case MenuOptionFilterTasksByStatus:
                     // Appeler la méthode correspondant à l'option 5
 
-                    string choixStatus = showTaskByStatus();
+                    string choixStatus = ShowTaskByStatus();
 
                     if(!int.TryParse(choixStatus, out _statusId))
                     {
@@ -164,11 +153,11 @@ namespace TodoList.FrontCLI
 
                     HttpResponseMessage tasksByStatus = await client.GetAsync($"api/Task/User/{_userId}/Status/{_statusId}");
 
-                    var allTasksByStatus= await verifyContentAndReturnJsonContent(tasksByStatus);
+                    string? allTasksByStatus= await VerifyContentAndReturnJsonContent(tasksByStatus);
 
                     if(allTasksByStatus != null) 
                     {
-                        showTasksByUser(allTasksByStatus);
+                        ShowTasksByUser(allTasksByStatus);
                     }
                    
                     break;
@@ -201,24 +190,22 @@ namespace TodoList.FrontCLI
                 Console.ForegroundColor = ConsoleColor.White;
 
                 // Récupération de l'id du user voir pour current_user_id en cas de logging
-                var NewTaskIdUser = _userId;
+                int newTaskIdUser = _userId;
 
                 Console.WriteLine("Veuillez indiquer le nom de la tâche : ");
-                var NewTaskName = Console.ReadLine();
+                string? newTaskName = Console.ReadLine();
 
                 Console.WriteLine("Veuillez indiquer la description de la tâche : ");
-                var NewTaskDesc = Console.ReadLine();
-
-                
+                string? newTaskDesc = Console.ReadLine();
 
                 var task = new
                 {
-                    Name = NewTaskName,
-                    Description = NewTaskDesc,
+                    Name = newTaskName,
+                    Description = newTaskDesc,
                     IdStatus = 1,
                     DateCreated = DateTime.Now,
                     // DateDue est utilisée seulement si la tâche est "Terminée"
-                    IdUser = NewTaskIdUser
+                    IdUser = newTaskIdUser
                 };
 
                 // Envoi des données à l'API en utilisant HttpClient
@@ -227,48 +214,46 @@ namespace TodoList.FrontCLI
                     HttpResponseMessage response = await client.PostAsJsonAsync("api/Task", task);
 
                     if(response.IsSuccessStatusCode)
-                    {
+                    { 
+                        // La tâche a été ajoutée avec succès
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Tâche ajoutée avec succès !");
+                        Console.ForegroundColor = ConsoleColor.White;
 
-                    // La tâche a été ajoutée avec succès
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Tâche ajoutée avec succès !");
-                    Console.ForegroundColor = ConsoleColor.White;
+                        // Affichage des informations saisies
+                        Console.WriteLine("Voici les informations que vous avez saisies :\n");
 
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Votre id: ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(newTaskIdUser);
 
-                    // Affichage des informations saisies
-                    Console.WriteLine("Voici les informations que vous avez saisies :\n");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Nom de la tâche: ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(newTaskName);
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Votre id: ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(NewTaskIdUser);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Description de la tâche: ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(newTaskDesc);
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Nom de la tâche: ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(NewTaskName);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Statut de la tâche: ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("à faire");
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Description de la tâche: ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(NewTaskDesc);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Date de création de la tâche: ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(DateTime.Now);
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Statut de la tâche: ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("à faire");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Date de clôture de la tâche : ");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Aucune");
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Date de création de la tâche: ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(DateTime.Now);
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("Date de clôture de la tâche : ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine("Aucune");
-
-                    Console.ForegroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
@@ -285,8 +270,6 @@ namespace TodoList.FrontCLI
                     Console.ForegroundColor = ConsoleColor.White;
 
                 }
-
-
 
                 string choix;
                 do
@@ -322,7 +305,7 @@ namespace TodoList.FrontCLI
             return true;
         }
 
-        private static async  Task<string> verifyContentAndReturnJsonContent(HttpResponseMessage response)
+        private static async Task<string> VerifyContentAndReturnJsonContent(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
@@ -335,12 +318,11 @@ namespace TodoList.FrontCLI
             return jsonContent; 
         }
 
-
-        private static async void showTasksByUser(string jsonContent)
+        private static void ShowTasksByUser(string jsonContent)
         {
-            var tasks = JArray.Parse(jsonContent);
+            JArray tasks = JArray.Parse(jsonContent);
 
-            var taskNamesAndDescriptions = tasks.Select(taskObj =>
+            IEnumerable<string> taskNamesAndDescriptions = tasks.Select(taskObj =>
             {
                 string statusText;
                 int idStatus = (int)taskObj["idStatus"];
@@ -371,7 +353,7 @@ namespace TodoList.FrontCLI
             Console.WriteLine(string.Join(", ", taskNamesAndDescriptions));
         }
 
-        private static  string showTaskByStatus()
+        private static string ShowTaskByStatus()
         {
             Console.WriteLine("Veuillez Sélectionner un statut : ");
             Console.WriteLine("1 - A Faire");
@@ -383,117 +365,7 @@ namespace TodoList.FrontCLI
             return choixStatut;
         }
 
-        private static async Task ModifyTaskAsync(HttpClient client)
-        {
-            bool editAnotherTask = true;
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("***   Vous avez choisi de modifier une tâche.   ***\n");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Veuillez indiquer le nom de la tâche ou l'id de la tâche : ");
-
-            while (editAnotherTask)
-            {
-                string? taskNameOrId = null;
-                while (string.IsNullOrEmpty(taskNameOrId))
-                {
-                    taskNameOrId = Console.ReadLine();
-                    Console.WriteLine("Veuillez indiquer le nom de la tâche ou son id pour continuer ...");
-                }
-
-                JToken? taskToEdit = null;
-
-                taskToEdit = int.TryParse(taskNameOrId, out var taskId) ? 
-                    _user["tasks"].FirstOrDefault(task => task["idTask"].Value<int>() == taskId) : 
-                    _user["tasks"].FirstOrDefault(task => task["name"].Value<string>() == taskNameOrId);
-
-                if (taskToEdit == null)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"La tâche '{taskNameOrId}' n'a pas été trouvée.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    return;
-                }
-
-                Console.WriteLine("Choisir une option d'édition :");
-                Console.WriteLine("- 1 : Modifier le nom");
-                Console.WriteLine("- 2 : Modifier la description");
-                Console.WriteLine("- 3 : Modifier le status");
-                Console.WriteLine("- 4 : Modifier le status");
-                Console.WriteLine("- 5 : Modifier la date de création");
-                Console.WriteLine("- 6 : Modifier la date d'échéance");
-
-                string? editionOption = null;
-                while (editionOption is not "1" or "2" or "3" or "4" or "5" or "6")
-                {
-                    editionOption = Console.ReadLine();
-                    Console.WriteLine("Veuillez sélectionner une option valide 1, 2, 3, 4, 5, 6 pour continuer ...");
-                }
-
-                switch (editionOption)
-                {
-                    case "1":
-                        Console.WriteLine($"Ancien nom : {taskToEdit["name"]}");
-                        Console.WriteLine("Entrez un nouveau nom :");
-                        string? newName = null;
-                        while (string.IsNullOrEmpty(newName))
-                        {
-                            newName = Console.ReadLine();
-                            if (taskToEdit["name"].Value<string>() == newName)
-                            {
-                                newName = null;
-                                Console.WriteLine("Le nouveau nom doit être différent de l'ancien ...");
-                            }
-
-                            Console.WriteLine("Entrez un nom pour continuer ...");
-                        }
-
-                        taskToEdit["name"] = newName;
-                        break;
-                    case "2":
-                        break; 
-                    case "3":
-                        break; 
-                    case "4":
-                        break; 
-                    case "5": 
-                        break; 
-                    case "6": 
-                        break;
-                }
-
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage updateResponse = await client.PutAsJsonAsync("api/Task/", taskToEdit.ToObject<JObject>());
-                if (!updateResponse.IsSuccessStatusCode)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Une erreur est survenue lors de la modification de la tâche.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-
-                Console.WriteLine("Revenir au menu d'édition :");
-                Console.WriteLine("- 1 : Oui");
-                Console.WriteLine("- 2 : Non et revenir au menu principal");
-                string? optionChoice = null;
-                while (optionChoice is not "1" or "2")
-                {
-                    optionChoice = Console.ReadLine();
-                    Console.WriteLine("Veuillez sélectionner une option valide 1, 2 pour continuer ...");
-                }
-
-                switch (optionChoice)
-                {
-                    case "2":
-                        Console.Clear();
-                        await ShowMenuAsync(client);
-                        break;
-                }
-            }
-        }
-
-        private static async Task<bool> DeleteTaskAsync(HttpClient client)
+        private static async Task DeleteTaskAsync(HttpClient client)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("***   Vous avez choisi de supprimer une tâche.   ***\n");
@@ -507,19 +379,19 @@ namespace TodoList.FrontCLI
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Une erreur est survenue lors de la récupération des tâches...");
-                return false;
+                return;
             }
 
             string jsonContent = await response.Content.ReadAsStringAsync();
-            var tasks = JArray.Parse(jsonContent);
-            var taskToDelete = tasks.FirstOrDefault(task => task["name"].ToString() == taskName);
+            JArray tasks = JArray.Parse(jsonContent);
+            JToken? taskToDelete = tasks.FirstOrDefault(task => task["name"].ToString() == taskName);
 
             if (taskToDelete == null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"La tâche '{taskName}' n'a pas été trouvée.");
                 Console.ForegroundColor = ConsoleColor.White;
-                return false;
+                return;
             }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -533,7 +405,7 @@ namespace TodoList.FrontCLI
 
             if (confirmation == "o")
             {
-                var taskId = (int)taskToDelete["idTask"];
+                int taskId = (int)taskToDelete["idTask"];
 
                 HttpResponseMessage deleteResponse = await client.DeleteAsync($"api/Task/{taskId}");
                 if (!deleteResponse.IsSuccessStatusCode)
@@ -541,7 +413,7 @@ namespace TodoList.FrontCLI
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Une erreur est survenue lors de la suppression de la tâche.");
                     Console.ForegroundColor = ConsoleColor.White;
-                    return false;
+                    return;
                 }
 
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -576,12 +448,12 @@ namespace TodoList.FrontCLI
                     }
                 } while (choix != "1" && choix != "2");
 
-                return true;
+                return;
             }
             else
             {
                 Console.WriteLine("Suppression annulée.");
-                return false;
+                return;
             }
         }
 
