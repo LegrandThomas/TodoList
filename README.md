@@ -91,13 +91,14 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
    ### use case
 
 
-<img width="603" alt="use_case" src="https://github.com/LegrandThomas/TodoList/assets/103045194/881ff5a2-fa49-42ba-a9ba-cb9fc0315a24">
+<img width="392" alt="use_case_new" src="https://github.com/LegrandThomas/TodoList/assets/103045194/a0433656-b141-4608-93ae-232eb2a3b4ed">
 
 
 
 ### Diagramme de classe:
 
-<img width="778" alt="diagramme_classe" src="https://github.com/LegrandThomas/TodoList/assets/103045194/b8782ea6-a88f-4db0-be22-073d7f17a5ea">
+<img width="525" alt="diagramme_classe_new" src="https://github.com/LegrandThomas/TodoList/assets/103045194/423ff443-b1e5-46a0-b00a-6d0b34921dd8">
+
 
 ### régles de cardinalités
 
