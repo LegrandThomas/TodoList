@@ -8,7 +8,11 @@ namespace Api.TodoList.Data.Repository.Contract
 
         Task<T?> GetById(int id, params Expression<Func<T, object>>[] includes);
 
+        Task<T?> GetBy(string fieldName, object fieldValue, params Expression<Func<T, object>>[] includes);
+
         Task<T> Add(T entity);
+
+        Task<T> Update(T entity);
 
         Task<T> Remove(T entity);
     }

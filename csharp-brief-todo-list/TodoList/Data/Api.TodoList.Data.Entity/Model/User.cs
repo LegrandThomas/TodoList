@@ -28,6 +28,7 @@ namespace Api.TodoList.Data.Entity.Model
         /// </summary>
         public string Email { get; set; } = null!;
 
+
         /// <summary>
         /// Tâches
         /// </summary>

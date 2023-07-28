@@ -71,6 +71,31 @@ namespace Api.TodoList.Data.Repository
             return await query.FirstOrDefaultAsync(lambda).ConfigureAwait(false);
         }
 
+        public async Task<T?> GetBy(string fieldName, object fieldValue, params Expression<Func<T, object>>[] includes)
+        {
+            var property = typeof(T).GetProperties()
+                .FirstOrDefault(x => x.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase));
+
+            if (property == null)
+            {
+                throw new InvalidOperationException($"Entity {typeof(T)} does not have a property with the name '{fieldName}'.");
+            }
+
+            var parameter = Expression.Parameter(typeof(T), "entity");
+            var propertyExpression = Expression.Property(parameter, property);
+            var equality = Expression.Equal(propertyExpression, Expression.Constant(fieldValue));
+
+            var lambda = Expression.Lambda<Func<T, bool>>(equality, parameter);
+
+            var query = Entities.AsQueryable();
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.FirstOrDefaultAsync(lambda).ConfigureAwait(false);
+        }
+
         /// <summary>
         /// Add entity of type T to the database
         /// </summary>
@@ -89,6 +114,19 @@ namespace Api.TodoList.Data.Repository
             await _dbContext.SaveChangesAsync().ConfigureAwait(false);
 
             return elementAdded.Entity;
+        }
+
+        /// <summary>
+        /// Update entity of type T from the database
+        /// </summary>
+        /// <param name="entity">Entity of type T</param>
+        /// <returns>Entity of type T</returns>
+        public async Task<T> Update(T entity)
+        {
+            var elementUpdated = Entities.Update(entity);
+            await _dbContext.SaveChangesAsync().ConfigureAwait(false);
+
+            return elementUpdated.Entity;
         }
 
         /// <summary>

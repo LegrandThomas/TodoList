@@ -4,6 +4,6 @@ namespace Api.TodoList.Service.DTO
     {
         public int IdUser { get; set; }
 
-        public List<ReadTaskDTO> Tasks { get; set; }
+        public IEnumerable<ReadTaskDTO> Tasks { get; set; }
     }
 }

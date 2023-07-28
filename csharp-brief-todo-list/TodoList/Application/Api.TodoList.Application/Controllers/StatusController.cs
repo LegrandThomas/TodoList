@@ -29,7 +29,27 @@ namespace Api.TodoList.Application.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Status DTO</returns>
-        [HttpGet("{id}"), ProducesResponseType(typeof(ReadStatusDTO), 200)]
-        public async Task<ActionResult> Get(int id) => Ok(await _statusService.GetStatusByIdAsync(id));
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ReadStatusDTO), 200)]
+        [ProducesResponseType(typeof(string), 404)] 
+        [ProducesResponseType(typeof(string), 500)] 
+        public async Task<ActionResult> Get(int id)
+        {
+            try
+            {
+                var status = await _statusService.GetStatusByIdAsync(id);
+                if (status == null)
+                {
+                    return NotFound("Le statut n'a pas été trouvé.");
+                }
+
+                return Ok(status); 
+            }
+            catch (Exception ex)
+            {
+
+                return NotFound("Le statut n'a pas été trouvé.");
+            }
+        }
     }
 }
