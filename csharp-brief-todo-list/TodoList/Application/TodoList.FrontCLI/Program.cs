@@ -43,14 +43,14 @@ namespace TodoList.FrontCLI
             while (!isLogged)
             {
                 Console.BackgroundColor = BgColorBlue;
-            Console.ForegroundColor = BgColorWhite;
-            Console.WriteLine("                 --------------------                 ");
-            Console.WriteLine("                 |    To Do List     |                ");
-            Console.WriteLine("                 --------------------                 ");
-            Console.BackgroundColor = BgColorBlack;
+                Console.ForegroundColor = BgColorWhite;
+                Console.WriteLine("                 --------------------                 ");
+                Console.WriteLine("                 |    To Do List     |                ");
+                Console.WriteLine("                 --------------------                 ");
+                Console.BackgroundColor = BgColorBlack;
 
-            // Console.WriteLine("Tapez votre adresse e-mail et votre mot de passe pour continuer...");
-            Console.WriteLine("Tapez votre adresse e-mail pour continuer...");
+                // Console.WriteLine("Tapez votre adresse e-mail et votre mot de passe pour continuer...");
+                Console.WriteLine("Tapez votre adresse e-mail pour continuer...");
 
             
                 string? input = Console.ReadLine();
@@ -86,20 +86,21 @@ namespace TodoList.FrontCLI
                 }
 
                 _userId = (int)_user["idUser"];
+                isLogged = true;
+                await ShowMenuAsync(client);
+
+                //if (CheckPassword())
+                // {
+                //     isLogged = true;
+                //     Console.WriteLine($"Connecté avec succès en utilisant  {_user["lastName"]}, {_user["firstName"]}...");
+                //     await ShowMenuAsync(client);
+                // }
+                // else
+                // {
+                //     continue;
+                // }
 
 
-               if (CheckPassword())
-                {
-                    isLogged = true;
-                    Console.WriteLine($"Connecté avec succès en utilisant  {_user["lastName"]}, {_user["firstName"]}...");
-                    await ShowMenuAsync(client);
-                }
-                else
-                {
-                    continue;
-                }
-
-              
             }
 
      
@@ -259,45 +260,45 @@ namespace TodoList.FrontCLI
                 // var NewTaskDateCreation = Console.ReadLine();
 
                 string tmpdate;
-                do
-                {
-                    Console.WriteLine("Veuillez indiquer le statut de cette tâche :");
-                    Console.WriteLine("   - 1 : à faire");
-                    Console.WriteLine("   - 2 : En cours");
-                    Console.WriteLine("   - 3 : Terminée");
+                //    do
+                //  {
+                //    Console.WriteLine("Veuillez indiquer le statut de cette tâche :");
+                //  Console.WriteLine("   - 1 : à faire");
+                //Console.WriteLine("   - 2 : En cours");
+                //Console.WriteLine("   - 3 : Terminée");
 
-                    tmpdate = Console.ReadLine();
-                } while (tmpdate != "1" && tmpdate != "2" && tmpdate != "3");
+                // tmpdate = Console.ReadLine();
+                // } while (tmpdate != "1" && tmpdate != "2" && tmpdate != "3");
 
-                int NewTaskStatus;
+                // int NewTaskStatus;
                 string NewTaskStatusString;
                 string NewTaskDateCloture = "";
-                string TaskStatusAFaire = "à faire";
-                string TaskStatusEnCours = "en cours";
-                string TaskStatusTerminee = "terminée";
-                string TaskStatusDefault = "non définie";
+                // string TaskStatusAFaire = "à faire";
+                // string TaskStatusEnCours = "en cours";
+                // string TaskStatusTerminee = "terminée";
+                //  string TaskStatusDefault = "non définie";
 
-                switch (tmpdate)
-                {
-                    case "1":
-                        NewTaskStatus = 1;
-                        NewTaskStatusString = TaskStatusAFaire;
-                        break;
-                    case "2":
-                        NewTaskStatus = 2;
-                        NewTaskStatusString = TaskStatusEnCours;
-                        break;
-                    case "3":
-                        NewTaskStatus = 3;
-                        NewTaskStatusString = TaskStatusTerminee;
-                        Console.WriteLine("Veuillez indiquer la date de résolution de la tâche, au format DD/MM/YYYY, merci : ");
-                        NewTaskDateCloture = Console.ReadLine();
-                        break;
-                    default:
-                        NewTaskStatus = 0;
-                        NewTaskStatusString = TaskStatusDefault;
-                        break;
-                }
+                //   switch (tmpdate)
+                // {
+                //   case "1":
+                // NewTaskStatus = 1;
+                // NewTaskStatusString = TaskStatusAFaire;
+                // break;
+                // case "2":
+                // NewTaskStatus = 2;
+                // NewTaskStatusString = TaskStatusEnCours;
+                // break;
+                // case "3":
+                // NewTaskStatus = 3;
+                // NewTaskStatusString = TaskStatusTerminee;
+                //Console.WriteLine("Veuillez indiquer la date de résolution de la tâche, au format DD/MM/YYYY, merci : ");
+                // NewTaskDateCloture = Console.ReadLine();
+                // break;
+                //default:
+                // NewTaskStatus = 0;
+                // NewTaskStatusString = TaskStatusDefault;
+                //break;
+                //}
 
                 // todo vérifier les données
 
@@ -305,7 +306,7 @@ namespace TodoList.FrontCLI
                 {
                     Name = NewTaskName,
                     Description = NewTaskDesc,
-                    IdStatus = NewTaskStatus,
+                    //IdStatus = NewTaskStatus,
                     DateCreated = DateTime.Now,
                     // DateDue est utilisée seulement si la tâche est "Terminée"
                     DateDue = string.IsNullOrEmpty(NewTaskDateCloture) ? null : NewTaskDateCloture,
@@ -320,6 +321,42 @@ namespace TodoList.FrontCLI
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Tâche ajoutée avec succès !");
                     Console.ForegroundColor = ConsoleColor.White;
+
+
+                    // Affichage des informations saisies
+                    Console.WriteLine("Voici les informations que vous avez saisies :\n");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Votre id: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(NewTaskIdUser);
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Nom de la tâche: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(NewTaskName);
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Description de la tâche: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(NewTaskDesc);
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Statut de la tâche: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("à faire");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Date de création de la tâche: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(DateTime.Now);
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Date de clôture de la tâche : ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(NewTaskDateCloture);
+
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 catch (Exception ex)
                 {
@@ -331,40 +368,6 @@ namespace TodoList.FrontCLI
                 }
 
 
-                // Affichage des informations saisies
-                Console.WriteLine("Voici les informations que vous avez saisies :\n");
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Votre id: ");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(NewTaskIdUser);
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Nom de la tâche: ");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(NewTaskName);
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Description de la tâche: ");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(NewTaskDesc);
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Statut de la tâche: ");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(NewTaskStatusString);
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Date de création de la tâche: ");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(DateTime.Now);
-
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Date de clôture de la tâche : ");
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(NewTaskDateCloture);
-
-                Console.ForegroundColor = ConsoleColor.White;
 
                 string choix;
                 do
@@ -417,12 +420,35 @@ namespace TodoList.FrontCLI
         private static async void showTasksByUser(string jsonContent)
         {
             var tasks = JArray.Parse(jsonContent);
+            //Console.WriteLine(tasks);
+
             var taskNamesAndDescriptions = tasks.Select(taskObj =>
-               $"- Nom: {taskObj["name"]}\n" +
-               $"- Description: {taskObj["description"]}\n" +
-               $"- Statut: {taskObj["status"]}\n" +
-               $"- Date de création: {taskObj["dateCreated"]}\n" +
-               $"- Date d'échéance: {taskObj["dateDue"]}\n");
+            {
+                string statusText;
+                int idStatus = (int)taskObj["idStatus"];
+
+                switch (idStatus)
+                {
+                    case 1:
+                        statusText = "À faire";
+                        break;
+                    case 2:
+                        statusText = "En cours";
+                        break;
+                    case 3:
+                        statusText = "Terminé";
+                        break;
+                    default:
+                        statusText = "À faire";
+                        break;
+                }
+
+                return $"- Nom: {taskObj["name"]}\n" +
+                       $"- Description: {taskObj["description"]}\n" +
+                       $"- Statut: {statusText}\n" +
+                       $"- Date de création: {taskObj["dateCreated"]}\n" +
+                       $"- Date d'échéance: {taskObj["dateDue"]}\n";
+            });
 
             Console.WriteLine(string.Join(", ", taskNamesAndDescriptions));
         }
