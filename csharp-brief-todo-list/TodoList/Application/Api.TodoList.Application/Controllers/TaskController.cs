@@ -29,8 +29,28 @@ namespace Api.TodoList.Application.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}"), ProducesResponseType(typeof(ReadTaskDTO), 200)]
-        public async Task<ActionResult> Get(int id) => Ok(await _taskService.GetTaskByIdAsync(id));
+      [HttpGet("{id}")]
+      [ProducesResponseType(typeof(ReadTaskDTO), 200)]
+      [ProducesResponseType(typeof(string), 404)] // 404 Not Found
+      [ProducesResponseType(typeof(string), 500)] // 500 Internal Server Error
+        public async Task<ActionResult> Get(int id)
+            {
+                 try
+                    {
+                    var task = await _taskService.GetTaskByIdAsync(id);
+                    if (task == null)
+                       {
+                         return NotFound("La tâche n'a pas été trouvée."); // 404 Not Found
+                       }
+
+                        return Ok(task); // 200 OK
+                       }
+                        catch (Exception ex)
+                        {
+              
+                        return NotFound("La tâche n'a pas été trouvée."); // 404 Not Found
+                    }
+                }
 
         /// <summary>
         /// Handle get request with params for retrieving a task by his userId
