@@ -403,15 +403,14 @@ namespace TodoList.FrontCLI
                 Console.WriteLine("- 1 : Modifier le nom");
                 Console.WriteLine("- 2 : Modifier la description");
                 Console.WriteLine("- 3 : Modifier le status");
-                Console.WriteLine("- 4 : Modifier le status");
-                Console.WriteLine("- 5 : Modifier la date de création");
-                Console.WriteLine("- 6 : Modifier la date d'échéance");
+                Console.WriteLine("- 4 : Modifier la date de création");
+                Console.WriteLine("- 5 : Modifier la date d'échéance");
 
                 string? editionOption = null;
-                while (editionOption is not "1" or "2" or "3" or "4" or "5" or "6")
+                while (!new[]{"1", "2", "3", "4", "5"}.Contains(editionOption))
                 {
                     editionOption = Console.ReadLine();
-                    Console.WriteLine("Veuillez sélectionner une option valide 1, 2, 3, 4, 5, 6 pour continuer ...");
+                    Console.WriteLine("Veuillez sélectionner une option valide 1, 2, 3, 4, 5 pour continuer ...");
                 }
 
                 switch (editionOption)
@@ -423,6 +422,12 @@ namespace TodoList.FrontCLI
                         while (string.IsNullOrEmpty(newName))
                         {
                             newName = Console.ReadLine();
+                            if (string.IsNullOrEmpty(newName))
+                            {
+                                Console.WriteLine("Entrez un nom pour continuer ...");
+                                continue;
+                            }
+
                             if (taskToEdit["name"].Value<string>() == newName)
                             {
                                 newName = null;
@@ -435,14 +440,58 @@ namespace TodoList.FrontCLI
                         taskToEdit["name"] = newName;
                         break;
                     case "2":
+                        Console.WriteLine($"Ancienne description : {taskToEdit["description"]}");
+                        Console.WriteLine("Entrez une nouvelle description :");
+                        string? newDescription = null;
+                        while (string.IsNullOrEmpty(newDescription))
+                        {
+                            newDescription = Console.ReadLine();
+                            if (string.IsNullOrEmpty(newDescription))
+                            {
+                                Console.WriteLine("Entrez une description pour continuer ...");
+                                continue;
+                            }
+
+                            if (taskToEdit["description"].Value<string>() == newDescription)
+                            {
+                                newDescription = null;
+                                Console.WriteLine("La nouvelle description doit être différente de l'ancienne ...");
+                            }
+                        }
+
+                        taskToEdit["description"] = newDescription;
                         break;
                     case "3":
+                        Console.WriteLine($"Ancienne date de création : {taskToEdit["dateCreated"]}");
+                        Console.WriteLine("Entrez une nouvelle date :");
+                        string? newDate = null;
+                        while (string.IsNullOrEmpty(newDate))
+                        {
+                            newDate = Console.ReadLine();
+                            if (string.IsNullOrEmpty(newDate))
+                            {
+                                Console.WriteLine("Entrez une date pour continuer ...");
+                                continue;
+                            }
+
+                            if (!DateTime.TryParse(newDate, out var newDateTime))
+                            {
+                                Console.WriteLine($"{newDateTime} n'est pas valide pour continuer ...");
+                                continue;
+                            }
+
+                            if (taskToEdit["dateCreated"].Value<DateTime>().Equals(newDateTime))
+                            {
+                                Console.WriteLine("La nouvelle date doit être différente de l'ancienne ...");
+                                continue;
+                            }
+
+                            taskToEdit["dateCreated"] = newDateTime;
+                        }
                         break;
                     case "4":
                         break;
                     case "5":
-                        break;
-                    case "6":
                         break;
                 }
 
@@ -457,20 +506,21 @@ namespace TodoList.FrontCLI
                 Console.WriteLine("Revenir au menu d'édition :");
                 Console.WriteLine("- 1 : Oui");
                 Console.WriteLine("- 2 : Non et revenir au menu principal");
-                string? optionChoice = null;
+                string? optionChoice = Console.ReadLine();
                 while (optionChoice is not "1" or "2")
                 {
                     optionChoice = Console.ReadLine();
                     Console.WriteLine("Veuillez sélectionner une option valide 1, 2 pour continuer ...");
                 }
 
-                switch (optionChoice)
+                if (optionChoice == "2")
                 {
-                    case "2":
-                        Console.Clear();
-                        await ShowMenuAsync(client);
-                        break;
+                    Console.Clear();
+                    await ShowMenuAsync(client);
+                    break;
                 }
+
+                await ModifyTaskAsync(client);
             }
         }
 
