@@ -248,7 +248,7 @@ namespace TodoList.FrontCLI
                 Console.ForegroundColor = ConsoleColor.White;
 
                 // Récupération de l'id du user voir pour current_user_id en cas de logging
-                var NewTaskIdUser = 1;
+                var NewTaskIdUser = _userId;
 
                 Console.WriteLine("Veuillez indiquer le nom de la tâche : ");
                 var NewTaskName = Console.ReadLine();
@@ -301,12 +301,12 @@ namespace TodoList.FrontCLI
                 //}
 
                 // todo vérifier les données
-
+                Console.WriteLine(DateTime.Now);
                 var task = new
                 {
                     Name = NewTaskName,
                     Description = NewTaskDesc,
-                    //IdStatus = NewTaskStatus,
+                    IdStatus = 1,
                     DateCreated = DateTime.Now,
                     // DateDue est utilisée seulement si la tâche est "Terminée"
                     DateDue = string.IsNullOrEmpty(NewTaskDateCloture) ? null : NewTaskDateCloture,

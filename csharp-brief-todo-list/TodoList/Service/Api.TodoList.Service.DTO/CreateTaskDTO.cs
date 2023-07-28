@@ -16,6 +16,10 @@ namespace Api.TodoList.Service.DTO
         [DefaultValue("")]
         public string? Description { get; set; }
 
+
+        [DefaultValue("")]
+        public string? DateCreated { get; set; }
+
         [DefaultValue("")]
         public string? DateDue { get; set; }
     }
