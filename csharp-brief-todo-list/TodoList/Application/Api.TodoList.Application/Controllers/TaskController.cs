@@ -53,7 +53,7 @@ namespace Api.TodoList.Application.Controllers
         /// </summary>
         /// <param name="taskDTO"></param>
         /// <returns>Task DTO</returns>
-        [HttpPost, ProducesResponseType(typeof(IEnumerable<ReadTaskDTO>), 200)]
+        [HttpPost, ProducesResponseType(typeof(IEnumerable<ReadTaskDTO>), 201)]
         public async Task<ActionResult> Post([FromBody] CreateTaskDTO taskDTO) => Ok(await _taskService.AddTaskAsync(taskDTO).ConfigureAwait(false));
 
         /// <summary>

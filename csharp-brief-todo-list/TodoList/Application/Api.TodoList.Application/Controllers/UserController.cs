@@ -45,7 +45,7 @@ namespace Api.TodoList.Application.Controllers
         /// </summary>
         /// <param name="userDTO"></param>
         /// <returns>User DTO</returns>
-        [HttpPost, ProducesResponseType(typeof(IEnumerable<ReadUserDTO>), 200)]
+        [HttpPost, ProducesResponseType(typeof(IEnumerable<ReadUserDTO>), 201)]
         public async Task<ActionResult> Post([FromBody] CreateUserDTO userDTO) => Ok(await _userService.AddUserAsync(userDTO).ConfigureAwait(false));
 
         /// <summary>

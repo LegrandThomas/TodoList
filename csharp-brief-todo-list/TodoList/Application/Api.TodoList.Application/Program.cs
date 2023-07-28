@@ -43,6 +43,20 @@ namespace Api.TodoList.Application
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Ajouter la gestion des CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                    
+
+                });
+            });
+
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -50,6 +64,10 @@ namespace Api.TodoList.Application
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+
+            // Ajouter le middleware CORS avant le middleware UseAuthorization
+            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 
