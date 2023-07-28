@@ -498,6 +498,37 @@ namespace TodoList.FrontCLI
                         {
                             Console.WriteLine("La tâche est terminée, la date ne peut pas être modifiée ...");
                         }
+                        Console.WriteLine($"Ancienne date d'échéance : {taskToEdit["dueDate"]}");
+                        Console.WriteLine("Entrez une nouvelle date :");
+                        string? newDateDue = null;
+                        while (string.IsNullOrEmpty(newDateDue))
+                        {
+                            newDateDue = Console.ReadLine();
+                            if (string.IsNullOrEmpty(newDateDue))
+                            {
+                                Console.WriteLine("Entrez une date pour continuer ...");
+                                continue;
+                            }
+
+                            if (!DateTime.TryParseExact(newDateDue, "dd/MM/yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out var newDateTime))
+                            {
+                                Console.WriteLine($"{newDateTime} n'est pas valide pour continuer ...");
+                                continue;
+                            }
+
+                            if (!string.IsNullOrEmpty(taskToEdit["dateDue"].Value<string>()))
+                            {
+                                var oldDate = DateTime.ParseExact(taskToEdit["dateDue"].Value<string>(),
+                                    "dd/MM/yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None);
+                                if (oldDate.Equals(newDateTime))
+                                {
+                                    Console.WriteLine("La nouvelle date doit être différente de l'ancienne ...");
+                                    continue;
+                                }
+                            }
+
+                            taskToEdit["dateDue"] = newDateTime;
+                        }
                         break;
                 }
 
