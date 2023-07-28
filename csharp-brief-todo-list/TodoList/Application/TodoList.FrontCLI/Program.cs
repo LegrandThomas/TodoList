@@ -462,6 +462,8 @@ namespace TodoList.FrontCLI
                         taskToEdit["description"] = newDescription;
                         break;
                     case "3":
+                        break;
+                    case "4":
                         Console.WriteLine($"Ancienne date de création : {taskToEdit["dateCreated"]}");
                         Console.WriteLine("Entrez une nouvelle date :");
                         string? newDate = null;
@@ -490,8 +492,6 @@ namespace TodoList.FrontCLI
 
                             taskToEdit["dateCreated"] = newDateTime;
                         }
-                        break;
-                    case "4":
                         break;
                     case "5":
                         break;
