@@ -97,7 +97,8 @@ L'objectif de ce sujet est de vous familiariser avec les concepts de base de la 
 
 ### Diagramme de classe:
 
-<img width="778" alt="diagramme_classe" src="https://github.com/LegrandThomas/TodoList/assets/103045194/b8782ea6-a88f-4db0-be22-073d7f17a5ea">
+<img width="525" alt="diagramme_classe_new" src="https://github.com/LegrandThomas/TodoList/assets/103045194/423ff443-b1e5-46a0-b00a-6d0b34921dd8">
+
 
 ### régles de cardinalités
 
