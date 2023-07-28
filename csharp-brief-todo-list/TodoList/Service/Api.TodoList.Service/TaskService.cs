@@ -76,9 +76,16 @@ namespace Api.TodoList.Service
 
             var taskToAdd = _mapper.Map<Task>(createTaskDTO);
 
-            var taskAdded = await _taskRepository.Add(taskToAdd).ConfigureAwait(false);
-
-            return _mapper.Map<ReadTaskDTO>(taskAdded);
+            try
+            {
+                var taskAdded = await _taskRepository.Add(taskToAdd).ConfigureAwait(false);
+                return _mapper.Map<ReadTaskDTO>(taskAdded);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la création de la tâche : Une tâche posséde déjà ce nom.", ex);
+            }
+          
         }
 
         public async Task<ReadTaskDTO> RemoveTaskAsync(int id)

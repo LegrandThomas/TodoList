@@ -273,6 +273,10 @@ namespace TodoList.FrontCLI
                 try
                 {
                     HttpResponseMessage response = await client.PostAsJsonAsync("api/Task", task);
+
+                    if(response.IsSuccessStatusCode)
+                    {
+
                     // La tâche a été ajoutée avec succès
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Tâche ajoutée avec succès !");
@@ -313,6 +317,13 @@ namespace TodoList.FrontCLI
                     Console.WriteLine("Aucune");
 
                     Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(" Action annulée, une tâche porte déjà ce nom");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                 }
                 catch (Exception ex)
                 {
